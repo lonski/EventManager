@@ -41,5 +41,13 @@ namespace EventManager.DBDrivers
 
             return data;
         }
+
+        override public bool exists(string query)
+        {
+            SQLiteCommand command = new SQLiteCommand(query, _cnn);
+            SQLiteDataReader reader = command.ExecuteReader();
+
+            return reader.HasRows;
+        }
     }
 }

@@ -11,5 +11,6 @@ namespace EventManager.DBDrivers
         abstract public void close();
 
         abstract public List< Dictionary<string, string> > query(string query);
+        abstract public bool exists(string query);
     }
 }
