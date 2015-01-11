@@ -1,0 +1,13 @@
+j:\EventManager\EventManager\EventManager\bin\Debug\EventManager.exe.config
+J:\EventManager\EventManager\EventManager\obj\Debug\EventManager.Properties.Resources.resources
+J:\EventManager\EventManager\EventManager\obj\Debug\EventManager.csproj.GenerateResource.Cache
+j:\EventManager\EventManager\EventManager\bin\Debug\EventManager.exe
+j:\EventManager\EventManager\EventManager\bin\Debug\EventManager.pdb
+j:\EventManager\EventManager\EventManager\bin\Debug\ObjectListView.xml
+j:\EventManager\EventManager\EventManager\bin\Debug\System.Data.SQLite.xml
+j:\EventManager\EventManager\EventManager\bin\Debug\System.Windows.Forms.Calendar.pdb
+j:\EventManager\EventManager\EventManager\obj\Debug\EventManager.exe
+j:\EventManager\EventManager\EventManager\obj\Debug\EventManager.pdb
+J:\EventManager\EventManager\EventManager\bin\Debug\System.Windows.Forms.Calendar.dll
+J:\EventManager\EventManager\EventManager\obj\Debug\EventManager.MainForm.resources
+J:\EventManager\EventManager\EventManager\obj\Debug\EventManager.EventForm.resources
