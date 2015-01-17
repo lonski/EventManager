@@ -6,33 +6,29 @@ using System.Text;
 
 namespace EventManager.DataGateways
 {
-    public class EventGateway
-    {
-        private IDBDriver db = null;
-        private string db_file = @"..\..\..\Database\event_manager.s3db";
+    using EventPersonEntry = KeyValuePair<int, Person.PersonType>;
+    using EventPersons = Dictionary<int, Person.PersonType>;
 
-        public EventGateway()
-        {
-            db = new SqlLiteDriver();
-        }
+    public class EventGateway : DataGateway
+    {
 
         public Event fetch(int i)
         {
             db.open(db_file);
-
+            
             Event e = null;
-            List<Dictionary<string, string>> eventData = db.query("SELECT * FROM events WHERE id="+i);
-
+            Dictionary<string, string> eventData = db.queryFirst("SELECT * FROM events WHERE id="+i);
+            
             if (eventData.Count > 0)
             {
-                e = createEvent(eventData[0]);
+                e = createEvent(eventData);
             }
 
             db.close();
             return e;
         }
 
-        private static Event createEvent(Dictionary<string, string> eventData)
+        private Event createEvent(Dictionary<string, string> eventData)
         {
             Event e = new Event();
 
@@ -47,7 +43,19 @@ namespace EventManager.DataGateways
             e.Cv = Convert.ToInt32(eventData["cv"]);
             e.Hired = Convert.ToInt32(eventData["hired"]);
 
+            loadPersons(e);
+
             return e;
+        }
+
+        private void loadPersons(Event e)
+        {
+            List<Dictionary<string, string>> persons = db.query("SELECT person FROM eventPersons WHERE event = " + e.ID);
+
+            foreach (Dictionary<string, string> person in persons)
+            {
+                e.Persons.Add(Convert.ToInt32(person["person"]));
+            }
         }
 
         public List<Event> fetch_all()
@@ -85,22 +93,44 @@ namespace EventManager.DataGateways
                         );
             }
             else
-            {//INSERT            
-                int id = Convert.ToInt32( db.query("SELECT max(id) as max FROM events")[0]["max"] ) + 1;
+            {//INSERT
+                int id = Convert.ToInt32(db.query("SELECT coalesce(max(id),0) as max FROM events")[0]["max"]) + 1;
                 e.ID = id;
                 db.query( "INSERT INTO events(id,name,location,description,date,icon,price,cv,hired,comment)"
                          +"VALUES("+e.ID+",\""+e.Name+"\",\""+e.Location+"\",\""+e.Description+"\",\""+e.Date+"\","
-                         +e.Icon+","+e.Price+","+e.Cv+","+e.Hired+",\""+e.Comment+"\");"                       
-                        );                
+                         +e.Icon+","+e.Price+","+e.Cv+","+e.Hired+",\""+e.Comment+"\");"
+                        );
+            }
+
+            deleteEventPersons(e.ID);
+            foreach( int pID in e.Persons )
+            {
+                addPersonToEvent(e.ID, pID);
             }
             
             db.close();
         }
 
+        public void deleteEventPersons(int eID)
+        {
+            db.query("DELETE FROM eventPersons WHERE event = " + eID);
+        }
+
+        public bool eventHasPerson(int eID, int pID)
+        {
+            return db.exists("SELECT 1 FROM eventPersons WHERE event=" + eID + " and person=" + pID);
+        }
+
+        public void addPersonToEvent(int eID, int pID)
+        {
+            db.query("INSERT INTO eventPersons(event, person) VALUES(" + eID + "," + pID + ")");
+        }
+
         public void erase(Event e)
         {
             db.open(db_file);
-            db.query("DELETE FROM events WHERE id=" + e.ID);
+            db.query("DELETE FROM eventPersons WHERE event=" + e.ID);
+            db.query("DELETE FROM events WHERE id=" + e.ID);            
             db.close();
         }
     }

@@ -13,45 +13,92 @@ using System.Windows.Forms.Calendar;
 namespace EventManager
 {
     public partial class MainForm : Form
-    {        
+    {
         private DateTime _calDate = new DateTime(2015, 1, 1);
+        
         private EventGateway _eventGateway = new EventGateway();
+        private PersonGateway _personsGateway = new PersonGateway();
+
         private List<Event> _events = null;
+        private List<Person> _persons = null;        
         private List<CalendarItem> _calendarItems = new List<CalendarItem>();
         
         public MainForm()
         {
             InitializeComponent();
-
-            fetchData();
                         
+            tabControl.ItemSize = new Size(0, 1);
+
+            loadAllData();
+            
+            //Properties.Settings.Default.DatabasePath
+        }
+
+        private void loadAllData()
+        {
+            fetchEvents();
+            fetchPersons();
             initalizeEventList();
             updateCalendarPeriod();
-
             reloadCalendarItems();
-            populate();
+            populateEvents();
+            populatePersons();
+        }
+
+        public List<Person> Persons
+        {
+            get { return _persons; }
+        }
+
+        public List<Event> Events
+        {
+            get { return _events; }
+        }
+
+        public void addNewPerson(Person p)
+        {
+            _personsGateway.write(p);
+            _persons.Add(p);
+            populatePersons();
+        }
+        
+        public void deletePerson(Person p)
+        {
+            personList.RemoveObject(p);
+            _personsGateway.erase(p);          
+            _events.Find(e => e.Persons.Contains(p.ID))
+                   .Persons.Remove(p.ID);
+            _persons.Remove(p);
         }
 
         public void addNewEvent(Event e)
         {
             _events.Add(e);
-            populate();
+            populateEvents();
         }
 
         public void deleteEvent(Event e)
         {
             _eventGateway.erase(e);
 
-            fetchData();
+            fetchEvents();
             reloadCalendarItems();
-            populate();
+            populateEvents();
         }
 
-        public void populate()
+        public void populateEvents()
         {
             reloadCalendarItems();
             populateCalendar();
             populateEventList();
+        }
+
+        public void populatePersons()
+        {
+            personList.Items.Clear();
+            personList.AddObjects(_persons);
+            personList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+            personList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
         }
 
         private void populateEventList()
@@ -74,9 +121,14 @@ namespace EventManager
             }
         }
 
-        private void fetchData()
+        private void fetchEvents()
         {                        
             _events = _eventGateway.fetch_all();            
+        }
+
+        private void fetchPersons()
+        {
+            _persons = _personsGateway.fetch_all();
         }
 
         private void reloadCalendarItems()
@@ -112,6 +164,11 @@ namespace EventManager
             get { return _eventGateway; }
         }
 
+        public PersonGateway PersonGateway
+        {
+            get { return _personsGateway; }
+        }
+
         private void initalizeEventList()
         {
             colName.ImageGetter = delegate(object eventObj)
@@ -120,16 +177,16 @@ namespace EventManager
                 return e.Icon;
             };
 
-            colPrice.ImageGetter = delegate(object eventObj)
-            {                
-                return "coins";
-            };
-
             colDate.AspectToStringConverter = delegate(object dateObj)
             {
                 DateTime date = (DateTime)dateObj;
                 return date.ToString("dd/MM/yyyy");
-            };            
+            };
+                        
+            colPrice.AspectToStringConverter = delegate(object dateObj)
+            {                
+                return String.Format("{0:C}", dateObj);
+            };   
         }
 
         private CalendarItem createCalendarItem(Event e)
@@ -181,14 +238,22 @@ namespace EventManager
             {
                 EventForm form = new EventForm(this, EventForm.Mode.VIEW);
                 form.loadEvent(ev);
-                form.Show();
+                form.ShowDialog();
+
+                if ( form.FormMode == EventForm.Mode.EDIT)
+                {
+                    _eventGateway.write(form.Event);
+                    populateEvents();
+                }
             }
         }
 
         private void eventAdd_Click(object sender, EventArgs e)
         {
             EventForm form = new EventForm(this, EventForm.Mode.ADD);            
-            form.Show();
+            form.ShowDialog();
+
+            addNewEvent(form.Event);
         }
 
         private void eventEdit_Click(object sender, EventArgs e)
@@ -199,7 +264,10 @@ namespace EventManager
             {
                 EventForm form = new EventForm(this, EventForm.Mode.EDIT);
                 form.loadEvent(ev);
-                form.Show();
+                form.ShowDialog();
+
+                _eventGateway.write(form.Event);
+                populateEvents();
             }
         }
         
@@ -226,6 +294,74 @@ namespace EventManager
         private void calendar_ItemDoubleClick(object sender, CalendarItemEventArgs e)
         {
             eventInfo_Click(this, null);
+        }
+
+        private void btnPersons_Click(object sender, EventArgs e)
+        {
+            tabControl.SelectedIndex = 2;
+        }
+
+        private void ribbon2_ActiveTabChanged(object sender, EventArgs e)
+        {
+            tabControl.SelectedIndex = ribbon2.Tabs.IndexOf(ribbon2.ActiveTab);
+        }
+
+        private void personInfo_Click(object sender, EventArgs e)
+        {
+            Person p = (Person)personList.SelectedObject;
+            if (p != null)
+            {
+                PersonForm form = new PersonForm(PersonForm.Mode.VIEW);
+                form.loadPerson(p);
+                form.ShowDialog();
+
+                if (form.FormMode == PersonForm.Mode.EDIT)
+                {
+                    _personsGateway.write(form.Person);
+                    populatePersons();
+                }
+            }
+        }
+
+        private void personEdit_Click(object sender, EventArgs e)
+        {
+            Person p = (Person)personList.SelectedObject;
+            if (p != null)
+            {
+                PersonForm form = new PersonForm(PersonForm.Mode.EDIT);
+                form.loadPerson(p);
+                form.ShowDialog();
+
+                _personsGateway.write(form.Person);
+                populatePersons();
+            }
+        }
+
+        private void personAdd_Click(object sender, EventArgs e)
+        {
+            PersonForm form = new PersonForm(PersonForm.Mode.ADD);
+            form.ShowDialog();
+            addNewPerson(form.Person);
+        }
+
+        private void personDelete_Click(object sender, EventArgs e)
+        {
+            Person p = (Person)personList.SelectedObject;
+            if (p != null)
+            {
+                string msg = "Delete person " + p.FName + " " + p.SName + "?";
+
+                if (MessageBox.Show(msg, "Delete person", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+                    == DialogResult.Yes)
+                {
+                    deletePerson(p);
+                }
+            }
+        }
+
+        private void personList_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            personInfo_Click(this, null);
         }
 
     }

@@ -22,11 +22,40 @@ namespace EventManager
             ADD            
         }
 
+        public Mode FormMode
+        {
+            get { return _mode; }
+        }
+
+        public Event Event
+        {
+            get {return _event;}
+        }
+
         public EventForm(MainForm parent, Mode formMode)            
         {           
             InitializeComponent();
             _parent = parent;
             applyFormMode(formMode);
+            initaliyePersonList();
+        }
+
+        private void initaliyePersonList()
+        {
+            colType.AspectToStringConverter = delegate(object obj)
+            {
+                Person.PersonType p = (Person.PersonType)obj;
+                string ret = "";
+
+                switch (p)
+                {
+                    case Person.PersonType.CONTACT: ret = "Contact person"; break;
+                    case Person.PersonType.RT: ret = "Recruitment team"; break;
+                    case Person.PersonType.BL: ret = "Buissness Line contact"; break;
+                };
+
+                return ret;
+            };
         }
         
         public void loadEvent(Event e)
@@ -37,14 +66,37 @@ namespace EventManager
             {
                 cName.Text = _event.Name;
                 cLoaction.Text = _event.Location;
-                cDate.Value = _event.Date;
-                cDate.MinDate = cDate.MaxDate = _event.Date;
+                cDate.Value = _event.Date;                
                 cPrice.Value = Convert.ToDecimal(_event.Price);
                 cCv.Value = _event.Cv;
                 cHired.Value = _event.Hired;
                 cDescription.Text = _event.Description;
                 cComments.Text = _event.Comment;
+                     
+                fillPersonList();
+                autosizePersonsColumns();
             }
+        }
+
+        private void fillPersonList()
+        {
+            ePersons.Items.Clear();
+            if (_event != null)
+            {
+                foreach (int pID in _event.Persons)
+                {
+                    Person person = _parent.Persons.Find(p => p.ID == pID);
+                    if (person != null)
+                        ePersons.AddObject(person);
+                }
+            }            
+        }
+
+        private void autosizePersonsColumns()
+        {
+            ePersons.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+            ePersons.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+            colType.Width = 0;
         }
 
         public void saveEvent()
@@ -56,9 +108,7 @@ namespace EventManager
             _event.Cv = Convert.ToInt32(cCv.Value);
             _event.Hired = Convert.ToInt32(cHired.Value);
             _event.Description = cDescription.Text;
-            _event.Comment = cComments.Text;
-
-            _parent.EventGateway.write(_event);
+            _event.Comment = cComments.Text;                        
         }
 
         private void btnClose_Click(object sender, EventArgs e)
@@ -72,44 +122,87 @@ namespace EventManager
             switch (_mode)
             {
                 case Mode.VIEW:
-                    setFormEditable(false);
+                    setControlsEnabled(false);
                     break;
                 case Mode.EDIT:
-                    setFormEditable(true);
+                    setControlsEnabled(true);
                     break;
                 case Mode.ADD:
-                    setFormEditable(true);
+                    setControlsEnabled(true);
+                    _event = new Event();
                     break;
             }
         }
 
-        private void setFormEditable(bool editable)
+        private void setControlsEnabled(bool editable)
         {
             btnOk.Visible = editable;
             cDate.Enabled = editable;
+            btnEdit.Visible = !editable;
+            btnPAdd.Enabled = editable;
+            btnPRemove.Enabled = editable;
+            btnPEdit.Enabled = editable;
+
             foreach (Control c in this.Controls)
             {
                 if ( !(c is Button) && !(c is Label))
-                    c.Enabled = editable;
+                    c.Enabled = editable;                
+            }
+        }
+        
+        private void btnOk_Click(object sender, EventArgs e)
+        {
+            saveEvent();
+            Close();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Person p = (Person)ePersons.SelectedObject;
+            if (p != null)
+            {
+                PersonForm form = new PersonForm(PersonForm.Mode.EDIT);
+                form.loadPerson(p);
+                form.ShowDialog();
+                fillPersonList();
+            }            
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Person p = (Person)ePersons.SelectedObject;
+            if (p != null)
+            {
+                string msg = "Delete person " + p.FName + " " + p.SName + "?";
+
+                if (MessageBox.Show(msg, "Delete person", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+                    == DialogResult.Yes)
+                {
+                    ePersons.RemoveObject(p);
+                    _event.Persons.Remove(p.ID);
+                }
             }
         }
 
-        private void btnOk_Click(object sender, EventArgs e)
+        private void btnEdit_Click(object sender, EventArgs e)
         {
-            if (_mode == Mode.ADD)
-            {
-                _event = new Event();
-                saveEvent();
-                _parent.addNewEvent(_event);
-            }
-            else if (_mode == Mode.EDIT)
-            {
-                saveEvent();                
-                _parent.populate();
-            }
-                        
-            Close();
+            _mode = Mode.EDIT;
+            setControlsEnabled(true);
         }
-        
+
+        private void btnPAdd_Click(object sender, EventArgs e)
+        {
+            PersonList list = new PersonList();
+            list.fill(_parent.Persons);
+            list.ShowDialog();
+
+            Person p = list.get();
+            if ( p != null && !_event.Persons.Contains(p.ID))
+            {
+                _event.Persons.Add(p.ID);
+                ePersons.AddObject(p);
+                autosizePersonsColumns();
+            }
+        }        
     }
 }

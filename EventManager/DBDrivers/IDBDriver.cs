@@ -5,12 +5,13 @@ using System.Text;
 
 namespace EventManager.DBDrivers
 {
-    abstract class IDBDriver
+    abstract public class IDBDriver
     {
-        abstract public void open(string db);
-        abstract public void close();
+        abstract public bool open(string db);
+        abstract public bool close();
 
         abstract public List< Dictionary<string, string> > query(string query);
+        abstract public Dictionary<string, string> queryFirst(string query);
         abstract public bool exists(string query);
     }
 }

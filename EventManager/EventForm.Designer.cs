@@ -46,9 +46,21 @@
             this.cHired = new System.Windows.Forms.NumericUpDown();
             this.btnOk = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
+            this.ePersons = new BrightIdeasSoftware.ObjectListView();
+            this.colType = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.colSurname = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.colName = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.colPhone = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.colEmail = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.label3 = new System.Windows.Forms.Label();
+            this.btnPAdd = new System.Windows.Forms.Button();
+            this.btnPRemove = new System.Windows.Forms.Button();
+            this.btnPEdit = new System.Windows.Forms.Button();
+            this.btnEdit = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.cPrice)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cCv)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cHired)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ePersons)).BeginInit();
             this.SuspendLayout();
             // 
             // cName
@@ -85,7 +97,7 @@
             // 
             // cDescription
             // 
-            this.cDescription.Location = new System.Drawing.Point(15, 192);
+            this.cDescription.Location = new System.Drawing.Point(17, 187);
             this.cDescription.Multiline = true;
             this.cDescription.Name = "cDescription";
             this.cDescription.Size = new System.Drawing.Size(273, 98);
@@ -94,7 +106,7 @@
             // lDescription
             // 
             this.lDescription.AutoSize = true;
-            this.lDescription.Location = new System.Drawing.Point(16, 176);
+            this.lDescription.Location = new System.Drawing.Point(18, 171);
             this.lDescription.Name = "lDescription";
             this.lDescription.Size = new System.Drawing.Size(60, 13);
             this.lDescription.TabIndex = 5;
@@ -103,7 +115,7 @@
             // lComment
             // 
             this.lComment.AutoSize = true;
-            this.lComment.Location = new System.Drawing.Point(17, 297);
+            this.lComment.Location = new System.Drawing.Point(17, 289);
             this.lComment.Name = "lComment";
             this.lComment.Size = new System.Drawing.Size(56, 13);
             this.lComment.TabIndex = 7;
@@ -111,7 +123,7 @@
             // 
             // cComments
             // 
-            this.cComments.Location = new System.Drawing.Point(16, 313);
+            this.cComments.Location = new System.Drawing.Point(16, 305);
             this.cComments.Multiline = true;
             this.cComments.Name = "cComments";
             this.cComments.Size = new System.Drawing.Size(272, 98);
@@ -119,6 +131,8 @@
             // 
             // cDate
             // 
+            this.cDate.CustomFormat = "ddMMMMyyyy,  HH:mm";
+            this.cDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.cDate.Location = new System.Drawing.Point(81, 64);
             this.cDate.Name = "cDate";
             this.cDate.Size = new System.Drawing.Size(207, 20);
@@ -217,7 +231,7 @@
             // 
             // btnOk
             // 
-            this.btnOk.Location = new System.Drawing.Point(132, 417);
+            this.btnOk.Location = new System.Drawing.Point(495, 409);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(75, 23);
             this.btnOk.TabIndex = 16;
@@ -227,19 +241,128 @@
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(213, 417);
+            this.btnClose.Location = new System.Drawing.Point(576, 409);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(75, 23);
             this.btnClose.TabIndex = 17;
-            this.btnClose.Text = "Close";
+            this.btnClose.Text = "Cancel";
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+            // 
+            // ePersons
+            // 
+            this.ePersons.AllColumns.Add(this.colType);
+            this.ePersons.AllColumns.Add(this.colSurname);
+            this.ePersons.AllColumns.Add(this.colName);
+            this.ePersons.AllColumns.Add(this.colPhone);
+            this.ePersons.AllColumns.Add(this.colEmail);
+            this.ePersons.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.colType,
+            this.colSurname,
+            this.colName,
+            this.colPhone,
+            this.colEmail});
+            this.ePersons.FullRowSelect = true;
+            this.ePersons.Location = new System.Drawing.Point(309, 54);
+            this.ePersons.Name = "ePersons";
+            this.ePersons.Size = new System.Drawing.Size(342, 349);
+            this.ePersons.TabIndex = 24;
+            this.ePersons.UseCompatibleStateImageBehavior = false;
+            this.ePersons.View = System.Windows.Forms.View.Details;
+            // 
+            // colType
+            // 
+            this.colType.AspectName = "Type";
+            this.colType.IsVisible = false;
+            this.colType.ShowTextInHeader = false;
+            this.colType.Text = "Type";
+            this.colType.Width = 1;
+            // 
+            // colSurname
+            // 
+            this.colSurname.AspectName = "SName";
+            this.colSurname.FillsFreeSpace = true;
+            this.colSurname.Groupable = false;
+            this.colSurname.Text = "Surname";
+            // 
+            // colName
+            // 
+            this.colName.AspectName = "FName";
+            this.colName.Groupable = false;
+            this.colName.Text = "Name";
+            // 
+            // colPhone
+            // 
+            this.colPhone.AspectName = "Phone";
+            this.colPhone.Groupable = false;
+            this.colPhone.Text = "Phone";
+            // 
+            // colEmail
+            // 
+            this.colEmail.AspectName = "Email";
+            this.colEmail.Groupable = false;
+            this.colEmail.Text = "E-mail";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(306, 12);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(45, 13);
+            this.label3.TabIndex = 25;
+            this.label3.Text = "Persons";
+            // 
+            // btnPAdd
+            // 
+            this.btnPAdd.Location = new System.Drawing.Point(309, 28);
+            this.btnPAdd.Name = "btnPAdd";
+            this.btnPAdd.Size = new System.Drawing.Size(110, 23);
+            this.btnPAdd.TabIndex = 26;
+            this.btnPAdd.Text = "Add";
+            this.btnPAdd.UseVisualStyleBackColor = true;
+            this.btnPAdd.Click += new System.EventHandler(this.btnPAdd_Click);
+            // 
+            // btnPRemove
+            // 
+            this.btnPRemove.Location = new System.Drawing.Point(425, 28);
+            this.btnPRemove.Name = "btnPRemove";
+            this.btnPRemove.Size = new System.Drawing.Size(110, 23);
+            this.btnPRemove.TabIndex = 27;
+            this.btnPRemove.Text = "Remove";
+            this.btnPRemove.UseVisualStyleBackColor = true;
+            this.btnPRemove.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // btnPEdit
+            // 
+            this.btnPEdit.Location = new System.Drawing.Point(541, 28);
+            this.btnPEdit.Name = "btnPEdit";
+            this.btnPEdit.Size = new System.Drawing.Size(110, 23);
+            this.btnPEdit.TabIndex = 28;
+            this.btnPEdit.Text = "Edit";
+            this.btnPEdit.UseVisualStyleBackColor = true;
+            this.btnPEdit.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // btnEdit
+            // 
+            this.btnEdit.Location = new System.Drawing.Point(13, 409);
+            this.btnEdit.Name = "btnEdit";
+            this.btnEdit.Size = new System.Drawing.Size(75, 23);
+            this.btnEdit.TabIndex = 29;
+            this.btnEdit.Text = "Edit";
+            this.btnEdit.UseVisualStyleBackColor = true;
+            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
             // EventForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(306, 448);
+            this.ClientSize = new System.Drawing.Size(658, 440);
+            this.Controls.Add(this.btnEdit);
+            this.Controls.Add(this.btnPEdit);
+            this.Controls.Add(this.btnPRemove);
+            this.Controls.Add(this.btnPAdd);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.ePersons);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.btnOk);
             this.Controls.Add(this.label2);
@@ -263,6 +386,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.cPrice)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cCv)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cHired)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ePersons)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -288,5 +412,16 @@
         private System.Windows.Forms.NumericUpDown cHired;
         private System.Windows.Forms.Button btnOk;
         private System.Windows.Forms.Button btnClose;
+        private BrightIdeasSoftware.ObjectListView ePersons;
+        private System.Windows.Forms.Label label3;
+        private BrightIdeasSoftware.OLVColumn colName;
+        private BrightIdeasSoftware.OLVColumn colSurname;
+        private BrightIdeasSoftware.OLVColumn colType;
+        private BrightIdeasSoftware.OLVColumn colPhone;
+        private BrightIdeasSoftware.OLVColumn colEmail;
+        private System.Windows.Forms.Button btnPAdd;
+        private System.Windows.Forms.Button btnPRemove;
+        private System.Windows.Forms.Button btnPEdit;
+        private System.Windows.Forms.Button btnEdit;
     }
 }

@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 
 namespace EventManager
-{
+{    
+    using EventPersons = List<int>;
+
     public class Event
     {
         private int _id = 0;
@@ -17,7 +19,14 @@ namespace EventManager
         private double _price = 0;
         private int _cv = 0;
         private int _hired = 0;
-        
+        private EventPersons _persons = new EventPersons();
+
+        public EventPersons Persons
+        {
+            get { return _persons; }
+            set { _persons = value; }
+        }
+
         public string Comment
         {
             get { return _comments; }

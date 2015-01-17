@@ -3,11 +3,15 @@ J:\EventManager\EventManager\EventManager\obj\Debug\EventManager.Properties.Reso
 J:\EventManager\EventManager\EventManager\obj\Debug\EventManager.csproj.GenerateResource.Cache
 j:\EventManager\EventManager\EventManager\bin\Debug\EventManager.exe
 j:\EventManager\EventManager\EventManager\bin\Debug\EventManager.pdb
-j:\EventManager\EventManager\EventManager\bin\Debug\ObjectListView.xml
-j:\EventManager\EventManager\EventManager\bin\Debug\System.Data.SQLite.xml
 j:\EventManager\EventManager\EventManager\bin\Debug\System.Windows.Forms.Calendar.pdb
 j:\EventManager\EventManager\EventManager\obj\Debug\EventManager.exe
 j:\EventManager\EventManager\EventManager\obj\Debug\EventManager.pdb
 J:\EventManager\EventManager\EventManager\bin\Debug\System.Windows.Forms.Calendar.dll
 J:\EventManager\EventManager\EventManager\obj\Debug\EventManager.MainForm.resources
 J:\EventManager\EventManager\EventManager\obj\Debug\EventManager.EventForm.resources
+j:\EventManager\EventManager\EventManager\obj\Debug\EventManager.PersonForm.resources
+j:\EventManager\EventManager\EventManager\obj\Debug\EventManager.PersonList.resources
+j:\EventManager\EventManager\EventManager\bin\Debug\EventManager.exe.manifest
+j:\EventManager\EventManager\EventManager\bin\Debug\EventManager.application
+j:\EventManager\EventManager\EventManager\obj\Debug\EventManager.exe.manifest
+j:\EventManager\EventManager\EventManager\obj\Debug\EventManager.application
