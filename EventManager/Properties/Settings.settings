@@ -2,8 +2,8 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="EventManager.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="DatabasePath" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">j:\EventManager\EventManager\Database\event_manager.s3db</Value>
+    <Setting Name="DatabasePath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">event_manager.s3db</Value>
     </Setting>
   </Settings>
 </SettingsFile>

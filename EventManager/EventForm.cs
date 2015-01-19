@@ -33,11 +33,18 @@ namespace EventManager
         }
 
         public EventForm(MainForm parent, Mode formMode)            
-        {           
-            InitializeComponent();
-            _parent = parent;
-            applyFormMode(formMode);
-            initaliyePersonList();
+        {
+            try
+            {
+                InitializeComponent();
+                _parent = parent;
+                applyFormMode(formMode);
+                initaliyePersonList();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void initaliyePersonList()
@@ -113,6 +120,7 @@ namespace EventManager
 
         private void btnClose_Click(object sender, EventArgs e)
         {
+            this.DialogResult = DialogResult.Cancel;
             Close();
         }
         
@@ -152,57 +160,98 @@ namespace EventManager
         
         private void btnOk_Click(object sender, EventArgs e)
         {
-            saveEvent();
-            Close();
+            try
+            {
+                saveEvent();
+                this.DialogResult = DialogResult.OK;
+                Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Close();
+            }            
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            Person p = (Person)ePersons.SelectedObject;
-            if (p != null)
+            try
             {
-                PersonForm form = new PersonForm(PersonForm.Mode.EDIT);
-                form.loadPerson(p);
-                form.ShowDialog();
-                fillPersonList();
-            }            
+                Person p = (Person)ePersons.SelectedObject;
+                if (p != null)
+                {
+                    PersonForm form = new PersonForm(PersonForm.Mode.EDIT);
+                    form.loadPerson(p);
+                    form.ShowDialog();
+
+                    if (form.DialogResult == DialogResult.OK)
+                    {
+                        fillPersonList();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }  
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Person p = (Person)ePersons.SelectedObject;
-            if (p != null)
+            try
             {
-                string msg = "Delete person " + p.FName + " " + p.SName + "?";
-
-                if (MessageBox.Show(msg, "Delete person", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
-                    == DialogResult.Yes)
+                Person p = (Person)ePersons.SelectedObject;
+                if (p != null)
                 {
-                    ePersons.RemoveObject(p);
-                    _event.Persons.Remove(p.ID);
+                    string msg = "Delete person " + p.FName + " " + p.SName + "?";
+
+                    if (MessageBox.Show(msg, "Delete person", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+                        == DialogResult.Yes)
+                    {
+                        ePersons.RemoveObject(p);
+                        _event.Persons.Remove(p.ID);
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }  
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
-            _mode = Mode.EDIT;
-            setControlsEnabled(true);
+            try
+            {
+                _mode = Mode.EDIT;
+                setControlsEnabled(true);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }  
         }
 
         private void btnPAdd_Click(object sender, EventArgs e)
         {
-            PersonList list = new PersonList();
-            list.fill(_parent.Persons);
-            list.ShowDialog();
-
-            Person p = list.get();
-            if ( p != null && !_event.Persons.Contains(p.ID))
+            try
             {
-                _event.Persons.Add(p.ID);
-                ePersons.AddObject(p);
-                autosizePersonsColumns();
+                PersonList list = new PersonList();
+                list.fill(_parent.Persons);
+                list.ShowDialog();
+
+                Person p = list.get();
+                if (p != null && !_event.Persons.Contains(p.ID))
+                {
+                    _event.Persons.Add(p.ID);
+                    ePersons.AddObject(p);
+                    autosizePersonsColumns();
+                }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }  
         }        
     }
 }

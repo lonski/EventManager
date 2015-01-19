@@ -75,6 +75,11 @@
             this.btnPersons = new System.Windows.Forms.RibbonButton();
             this.ribbonTab5 = new System.Windows.Forms.RibbonTab();
             this.ribbon2 = new System.Windows.Forms.Ribbon();
+            this.itmReload = new System.Windows.Forms.RibbonOrbMenuItem();
+            this.itmSettings = new System.Windows.Forms.RibbonOrbMenuItem();
+            this.ribbonSeparator1 = new System.Windows.Forms.RibbonSeparator();
+            this.itmAbout = new System.Windows.Forms.RibbonOrbMenuItem();
+            this.itmExit = new System.Windows.Forms.RibbonOrbMenuItem();
             this.rtabCalendar = new System.Windows.Forms.RibbonTab();
             this.ribbonPanel5 = new System.Windows.Forms.RibbonPanel();
             this.ribbonButton4 = new System.Windows.Forms.RibbonButton();
@@ -93,6 +98,7 @@
             this.personEdit = new System.Windows.Forms.RibbonButton();
             this.personAdd = new System.Windows.Forms.RibbonButton();
             this.personDelete = new System.Windows.Forms.RibbonButton();
+            this.colType = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.tabControl.SuspendLayout();
             this.tabCalendar.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -179,7 +185,6 @@
             this.calNextMonth.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.calNextMonth.AutoSize = false;
             this.calNextMonth.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.calNextMonth.Image = ((System.Drawing.Image)(resources.GetObject("calNextMonth.Image")));
             this.calNextMonth.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.calNextMonth.Name = "calNextMonth";
             this.calNextMonth.Size = new System.Drawing.Size(70, 22);
@@ -210,7 +215,6 @@
             this.calPrevMonth.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.calPrevMonth.AutoSize = false;
             this.calPrevMonth.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.calPrevMonth.Image = ((System.Drawing.Image)(resources.GetObject("calPrevMonth.Image")));
             this.calPrevMonth.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.calPrevMonth.Name = "calPrevMonth";
             this.calPrevMonth.Size = new System.Drawing.Size(70, 22);
@@ -494,6 +498,7 @@
             // 
             // personList
             // 
+            this.personList.AllColumns.Add(this.colType);
             this.personList.AllColumns.Add(this.colFName);
             this.personList.AllColumns.Add(this.colSName);
             this.personList.AllColumns.Add(this.colCompany);
@@ -501,6 +506,7 @@
             this.personList.AllColumns.Add(this.colEmail);
             this.personList.AlternateRowBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.personList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.colType,
             this.colFName,
             this.colSName,
             this.colCompany,
@@ -518,7 +524,6 @@
             this.personList.PersistentCheckBoxes = false;
             this.personList.RowHeight = 24;
             this.personList.SelectAllOnControlA = false;
-            this.personList.ShowGroups = false;
             this.personList.ShowImagesOnSubItems = true;
             this.personList.Size = new System.Drawing.Size(737, 362);
             this.personList.SmallImageList = this.listSmallIcons;
@@ -676,13 +681,19 @@
             // 
             // 
             this.ribbon2.OrbDropDown.BorderRoundness = 8;
+            this.ribbon2.OrbDropDown.ContentButtonsMinWidth = 200;
             this.ribbon2.OrbDropDown.Location = new System.Drawing.Point(0, 0);
+            this.ribbon2.OrbDropDown.MenuItems.Add(this.itmReload);
+            this.ribbon2.OrbDropDown.MenuItems.Add(this.itmSettings);
+            this.ribbon2.OrbDropDown.MenuItems.Add(this.ribbonSeparator1);
+            this.ribbon2.OrbDropDown.MenuItems.Add(this.itmAbout);
+            this.ribbon2.OrbDropDown.MenuItems.Add(this.itmExit);
             this.ribbon2.OrbDropDown.Name = "";
-            this.ribbon2.OrbDropDown.Size = new System.Drawing.Size(527, 447);
+            this.ribbon2.OrbDropDown.Size = new System.Drawing.Size(212, 251);
             this.ribbon2.OrbDropDown.TabIndex = 0;
             this.ribbon2.OrbImage = null;
             this.ribbon2.OrbStyle = System.Windows.Forms.RibbonOrbStyle.Office_2010;
-            this.ribbon2.OrbVisible = false;
+            this.ribbon2.OrbText = "Event Manager";
             this.ribbon2.RibbonTabFont = new System.Drawing.Font("Trebuchet MS", 9F);
             this.ribbon2.Size = new System.Drawing.Size(745, 120);
             this.ribbon2.TabIndex = 6;
@@ -693,6 +704,38 @@
             this.ribbon2.Text = "ribbon2";
             this.ribbon2.ThemeColor = System.Windows.Forms.RibbonTheme.Blue;
             this.ribbon2.ActiveTabChanged += new System.EventHandler(this.ribbon2_ActiveTabChanged);
+            // 
+            // itmReload
+            // 
+            this.itmReload.DropDownArrowDirection = System.Windows.Forms.RibbonArrowDirection.Left;
+            this.itmReload.Image = global::EventManager.Properties.Resources.sign_sync;
+            this.itmReload.SmallImage = global::EventManager.Properties.Resources.sign_sync;
+            this.itmReload.Text = "Reload all data";
+            this.itmReload.Click += new System.EventHandler(this.itmReload_Click);
+            // 
+            // itmSettings
+            // 
+            this.itmSettings.DropDownArrowDirection = System.Windows.Forms.RibbonArrowDirection.Left;
+            this.itmSettings.Image = global::EventManager.Properties.Resources.wrench_screwdriver;
+            this.itmSettings.SmallImage = global::EventManager.Properties.Resources.wrench_screwdriver;
+            this.itmSettings.Text = "Settings";
+            this.itmSettings.Click += new System.EventHandler(this.itmSettings_Click);
+            // 
+            // itmAbout
+            // 
+            this.itmAbout.DropDownArrowDirection = System.Windows.Forms.RibbonArrowDirection.Left;
+            this.itmAbout.Image = global::EventManager.Properties.Resources.sign_question;
+            this.itmAbout.SmallImage = global::EventManager.Properties.Resources.sign_question;
+            this.itmAbout.Text = "About";
+            this.itmAbout.Click += new System.EventHandler(this.itmAbout_Click);
+            // 
+            // itmExit
+            // 
+            this.itmExit.DropDownArrowDirection = System.Windows.Forms.RibbonArrowDirection.Left;
+            this.itmExit.Image = global::EventManager.Properties.Resources.exit1;
+            this.itmExit.SmallImage = global::EventManager.Properties.Resources.exit1;
+            this.itmExit.Text = "Exit";
+            this.itmExit.Click += new System.EventHandler(this.itmExit_Click);
             // 
             // rtabCalendar
             // 
@@ -709,28 +752,28 @@
             // 
             // ribbonButton4
             // 
-            this.ribbonButton4.Image = ((System.Drawing.Image)(resources.GetObject("ribbonButton4.Image")));
+            this.ribbonButton4.Image = global::EventManager.Properties.Resources.info;
             this.ribbonButton4.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonButton4.SmallImage")));
             this.ribbonButton4.Text = "Show";
             this.ribbonButton4.Click += new System.EventHandler(this.eventInfo_Click);
             // 
             // ribbonButton5
             // 
-            this.ribbonButton5.Image = ((System.Drawing.Image)(resources.GetObject("ribbonButton5.Image")));
+            this.ribbonButton5.Image = global::EventManager.Properties.Resources.edit;
             this.ribbonButton5.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonButton5.SmallImage")));
             this.ribbonButton5.Text = "Edit";
             this.ribbonButton5.Click += new System.EventHandler(this.eventEdit_Click);
             // 
             // ribbonButton6
             // 
-            this.ribbonButton6.Image = ((System.Drawing.Image)(resources.GetObject("ribbonButton6.Image")));
+            this.ribbonButton6.Image = global::EventManager.Properties.Resources.add;
             this.ribbonButton6.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonButton6.SmallImage")));
             this.ribbonButton6.Text = "Add";
             this.ribbonButton6.Click += new System.EventHandler(this.eventAdd_Click);
             // 
             // ribbonButton7
             // 
-            this.ribbonButton7.Image = ((System.Drawing.Image)(resources.GetObject("ribbonButton7.Image")));
+            this.ribbonButton7.Image = global::EventManager.Properties.Resources.delete;
             this.ribbonButton7.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonButton7.SmallImage")));
             this.ribbonButton7.Text = "Delete";
             this.ribbonButton7.Click += new System.EventHandler(this.eventDelete_Click);
@@ -750,28 +793,28 @@
             // 
             // ribbonButton8
             // 
-            this.ribbonButton8.Image = ((System.Drawing.Image)(resources.GetObject("ribbonButton8.Image")));
+            this.ribbonButton8.Image = global::EventManager.Properties.Resources.info;
             this.ribbonButton8.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonButton8.SmallImage")));
             this.ribbonButton8.Text = "Show";
             this.ribbonButton8.Click += new System.EventHandler(this.eventInfo_Click);
             // 
             // ribbonButton9
             // 
-            this.ribbonButton9.Image = ((System.Drawing.Image)(resources.GetObject("ribbonButton9.Image")));
+            this.ribbonButton9.Image = global::EventManager.Properties.Resources.edit;
             this.ribbonButton9.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonButton9.SmallImage")));
             this.ribbonButton9.Text = "Edit";
             this.ribbonButton9.Click += new System.EventHandler(this.eventEdit_Click);
             // 
             // ribbonButton10
             // 
-            this.ribbonButton10.Image = ((System.Drawing.Image)(resources.GetObject("ribbonButton10.Image")));
+            this.ribbonButton10.Image = global::EventManager.Properties.Resources.add;
             this.ribbonButton10.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonButton10.SmallImage")));
             this.ribbonButton10.Text = "Add";
             this.ribbonButton10.Click += new System.EventHandler(this.eventAdd_Click);
             // 
             // ribbonButton11
             // 
-            this.ribbonButton11.Image = ((System.Drawing.Image)(resources.GetObject("ribbonButton11.Image")));
+            this.ribbonButton11.Image = global::EventManager.Properties.Resources.delete;
             this.ribbonButton11.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonButton11.SmallImage")));
             this.ribbonButton11.Text = "Delete";
             this.ribbonButton11.Click += new System.EventHandler(this.eventDelete_Click);
@@ -791,31 +834,36 @@
             // 
             // personInfo
             // 
-            this.personInfo.Image = ((System.Drawing.Image)(resources.GetObject("personInfo.Image")));
+            this.personInfo.Image = global::EventManager.Properties.Resources.info;
             this.personInfo.SmallImage = ((System.Drawing.Image)(resources.GetObject("personInfo.SmallImage")));
             this.personInfo.Text = "Show";
             this.personInfo.Click += new System.EventHandler(this.personInfo_Click);
             // 
             // personEdit
             // 
-            this.personEdit.Image = ((System.Drawing.Image)(resources.GetObject("personEdit.Image")));
+            this.personEdit.Image = global::EventManager.Properties.Resources.edit;
             this.personEdit.SmallImage = ((System.Drawing.Image)(resources.GetObject("personEdit.SmallImage")));
             this.personEdit.Text = "Edit";
             this.personEdit.Click += new System.EventHandler(this.personEdit_Click);
             // 
             // personAdd
             // 
-            this.personAdd.Image = ((System.Drawing.Image)(resources.GetObject("personAdd.Image")));
+            this.personAdd.Image = global::EventManager.Properties.Resources.add;
             this.personAdd.SmallImage = ((System.Drawing.Image)(resources.GetObject("personAdd.SmallImage")));
             this.personAdd.Text = "Add";
             this.personAdd.Click += new System.EventHandler(this.personAdd_Click);
             // 
             // personDelete
             // 
-            this.personDelete.Image = ((System.Drawing.Image)(resources.GetObject("personDelete.Image")));
+            this.personDelete.Image = global::EventManager.Properties.Resources.delete;
             this.personDelete.SmallImage = ((System.Drawing.Image)(resources.GetObject("personDelete.SmallImage")));
             this.personDelete.Text = "Delete";
             this.personDelete.Click += new System.EventHandler(this.personDelete_Click);
+            // 
+            // colType
+            // 
+            this.colType.AspectName = "Type";
+            this.colType.Text = "Type";
             // 
             // MainForm
             // 
@@ -905,6 +953,12 @@
         private System.Windows.Forms.RibbonButton personEdit;
         private System.Windows.Forms.RibbonButton personAdd;
         private System.Windows.Forms.RibbonButton personDelete;
+        private System.Windows.Forms.RibbonOrbMenuItem itmReload;
+        private System.Windows.Forms.RibbonOrbMenuItem itmSettings;
+        private System.Windows.Forms.RibbonSeparator ribbonSeparator1;
+        private System.Windows.Forms.RibbonOrbMenuItem itmExit;
+        private System.Windows.Forms.RibbonOrbMenuItem itmAbout;
+        private BrightIdeasSoftware.OLVColumn colType;
 
 
     }

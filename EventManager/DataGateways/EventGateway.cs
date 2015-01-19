@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 
 namespace EventManager.DataGateways
 {
@@ -32,18 +33,26 @@ namespace EventManager.DataGateways
         {
             Event e = new Event();
 
-            e.ID = Convert.ToInt32(eventData["id"]);
-            e.Name = eventData["name"];
-            e.Location = eventData["location"];
-            e.Description = eventData["description"];
-            e.Comment = eventData["comment"];
-            e.Date = DateTime.Parse(eventData["date"]);
-            e.Icon = Convert.ToInt32(eventData["icon"]);
-            e.Price = Convert.ToDouble(eventData["price"]);
-            e.Cv = Convert.ToInt32(eventData["cv"]);
-            e.Hired = Convert.ToInt32(eventData["hired"]);
+            try
+            {
 
-            loadPersons(e);
+                e.ID = Convert.ToInt32(eventData["id"]);
+                e.Name = eventData["name"];
+                e.Location = eventData["location"];
+                e.Description = eventData["description"];
+                e.Comment = eventData["comment"];
+                e.Date = DateTime.Parse(eventData["date"]);
+                e.Icon = Convert.ToInt32(eventData["icon"]);
+                e.Price = Convert.ToDouble(eventData["price"]);
+                e.Cv = Convert.ToInt32(eventData["cv"]);
+                e.Hired = Convert.ToInt32(eventData["hired"]);
+
+                loadPersons(e);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Event loading failed: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
             return e;
         }

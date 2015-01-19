@@ -23,12 +23,15 @@ namespace EventManager.Properties {
             }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("j:\\EventManager\\EventManager\\Database\\event_manager.s3db")]
+        [global::System.Configuration.DefaultSettingValueAttribute("event_manager.s3db")]
         public string DatabasePath {
             get {
                 return ((string)(this["DatabasePath"]));
+            }
+            set {
+                this["DatabasePath"] = value;
             }
         }
     }
