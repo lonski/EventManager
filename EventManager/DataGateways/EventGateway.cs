@@ -40,7 +40,6 @@ namespace EventManager.DataGateways
                 e.Location = eventData["location"];
                 e.Description = eventData["description"];
                 e.Comment = eventData["comment"];
-                e.Date = DateTime.Parse(eventData["date"]);
                 e.Icon = Convert.ToInt32(eventData["icon"]);
                 e.Price = Convert.ToDouble(eventData["price"]);
                 e.Cv = Convert.ToInt32(eventData["cv"]);
@@ -48,7 +47,12 @@ namespace EventManager.DataGateways
                 e.Applications = Convert.ToInt32(eventData["appCount"]);
                 e.Target = Convert.ToInt32(eventData["target"]);
                 e.Feedback = eventData["feedback"];
-                e.Deadline = DateTime.Parse(eventData["deadline"]);
+
+                string eventDate = eventData["date"];
+                e.Date = eventDate.Equals("") ? DateTime.Now : DateTime.Parse(eventDate);
+
+                string eventDeadline = eventData["deadline"];
+                e.Deadline = eventDeadline.Equals("") ? DateTime.Now : DateTime.Parse(eventDeadline);
 
                 loadPersons(e);
             }

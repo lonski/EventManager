@@ -196,7 +196,7 @@
             // 
             // cCv
             // 
-            this.cCv.Location = new System.Drawing.Point(232, 146);
+            this.cCv.Location = new System.Drawing.Point(215, 146);
             this.cCv.Maximum = new decimal(new int[] {
             1000000,
             0,
@@ -208,7 +208,7 @@
             0,
             -2147483648});
             this.cCv.Name = "cCv";
-            this.cCv.Size = new System.Drawing.Size(56, 20);
+            this.cCv.Size = new System.Drawing.Size(73, 20);
             this.cCv.TabIndex = 12;
             this.cCv.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -223,7 +223,7 @@
             // 
             // cHired
             // 
-            this.cHired.Location = new System.Drawing.Point(232, 172);
+            this.cHired.Location = new System.Drawing.Point(215, 172);
             this.cHired.Maximum = new decimal(new int[] {
             1000000,
             0,
@@ -235,7 +235,7 @@
             0,
             -2147483648});
             this.cHired.Name = "cHired";
-            this.cHired.Size = new System.Drawing.Size(56, 20);
+            this.cHired.Size = new System.Drawing.Size(73, 20);
             this.cHired.TabIndex = 14;
             this.cHired.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -403,7 +403,7 @@
             0,
             -2147483648});
             this.cTarget.Name = "cTarget";
-            this.cTarget.Size = new System.Drawing.Size(56, 20);
+            this.cTarget.Size = new System.Drawing.Size(73, 20);
             this.cTarget.TabIndex = 34;
             this.cTarget.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -430,7 +430,7 @@
             0,
             -2147483648});
             this.cApp.Name = "cApp";
-            this.cApp.Size = new System.Drawing.Size(56, 20);
+            this.cApp.Size = new System.Drawing.Size(73, 20);
             this.cApp.TabIndex = 32;
             this.cApp.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 

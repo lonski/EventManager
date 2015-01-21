@@ -46,6 +46,9 @@
             this.colLoaction = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.colDate = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.colPrice = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.colDeadline = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.colTarget = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.colApplications = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.colCV = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.colHired = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.listSmallIcons = new System.Windows.Forms.ImageList(this.components);
@@ -99,9 +102,6 @@
             this.personEdit = new System.Windows.Forms.RibbonButton();
             this.personAdd = new System.Windows.Forms.RibbonButton();
             this.personDelete = new System.Windows.Forms.RibbonButton();
-            this.colApplications = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
-            this.colTarget = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
-            this.colDeadline = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.tabControl.SuspendLayout();
             this.tabCalendar.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -246,7 +246,7 @@
             this.eventList.AllColumns.Add(this.colApplications);
             this.eventList.AllColumns.Add(this.colCV);
             this.eventList.AllColumns.Add(this.colHired);
-            this.eventList.AlternateRowBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.eventList.AlternateRowBackColor = System.Drawing.Color.White;
             this.eventList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.colName,
             this.colLoaction,
@@ -306,6 +306,21 @@
             this.colPrice.ImageAspectName = "PriceIcon";
             this.colPrice.Text = "Price";
             this.colPrice.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // colDeadline
+            // 
+            this.colDeadline.AspectName = "Deadline";
+            this.colDeadline.Text = "Deadline";
+            // 
+            // colTarget
+            // 
+            this.colTarget.AspectName = "Target";
+            this.colTarget.Text = "Taget";
+            // 
+            // colApplications
+            // 
+            this.colApplications.AspectName = "Applications";
+            this.colApplications.Text = "Applications";
             // 
             // colCV
             // 
@@ -513,7 +528,7 @@
             this.personList.AllColumns.Add(this.colCompany);
             this.personList.AllColumns.Add(this.colPhone);
             this.personList.AllColumns.Add(this.colEmail);
-            this.personList.AlternateRowBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.personList.AlternateRowBackColor = System.Drawing.Color.White;
             this.personList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.colType,
             this.colFName,
@@ -873,21 +888,6 @@
             this.personDelete.SmallImage = ((System.Drawing.Image)(resources.GetObject("personDelete.SmallImage")));
             this.personDelete.Text = "Delete";
             this.personDelete.Click += new System.EventHandler(this.personDelete_Click);
-            // 
-            // colApplications
-            // 
-            this.colApplications.AspectName = "Applications";
-            this.colApplications.Text = "Applications";
-            // 
-            // colTarget
-            // 
-            this.colTarget.AspectName = "Target";
-            this.colTarget.Text = "Taget";
-            // 
-            // colDeadline
-            // 
-            this.colDeadline.AspectName = "Deadline";
-            this.colDeadline.Text = "Deadline";
             // 
             // MainForm
             // 
