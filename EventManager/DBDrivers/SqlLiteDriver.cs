@@ -38,7 +38,7 @@ namespace EventManager.DBDrivers
                 Dictionary<string, string> row = new Dictionary<string,string>();
                 
                 for( int i = 0; i < reader.FieldCount; ++i)
-                {
+                {   
                     row[reader.GetName(i)] = reader[i].ToString();
                 }
                 data.Add(row);                

@@ -51,6 +51,7 @@
             this.listSmallIcons = new System.Windows.Forms.ImageList(this.components);
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.personList = new BrightIdeasSoftware.ObjectListView();
+            this.colType = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.colFName = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.colSName = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.colCompany = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
@@ -98,7 +99,9 @@
             this.personEdit = new System.Windows.Forms.RibbonButton();
             this.personAdd = new System.Windows.Forms.RibbonButton();
             this.personDelete = new System.Windows.Forms.RibbonButton();
-            this.colType = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.colApplications = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.colTarget = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.colDeadline = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.tabControl.SuspendLayout();
             this.tabCalendar.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -238,6 +241,9 @@
             this.eventList.AllColumns.Add(this.colLoaction);
             this.eventList.AllColumns.Add(this.colDate);
             this.eventList.AllColumns.Add(this.colPrice);
+            this.eventList.AllColumns.Add(this.colDeadline);
+            this.eventList.AllColumns.Add(this.colTarget);
+            this.eventList.AllColumns.Add(this.colApplications);
             this.eventList.AllColumns.Add(this.colCV);
             this.eventList.AllColumns.Add(this.colHired);
             this.eventList.AlternateRowBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
@@ -246,6 +252,9 @@
             this.colLoaction,
             this.colDate,
             this.colPrice,
+            this.colDeadline,
+            this.colTarget,
+            this.colApplications,
             this.colCV,
             this.colHired});
             this.eventList.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -532,6 +541,11 @@
             this.personList.UseCompatibleStateImageBehavior = false;
             this.personList.View = System.Windows.Forms.View.Details;
             this.personList.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.personList_MouseDoubleClick);
+            // 
+            // colType
+            // 
+            this.colType.AspectName = "Type";
+            this.colType.Text = "Type";
             // 
             // colFName
             // 
@@ -860,10 +874,20 @@
             this.personDelete.Text = "Delete";
             this.personDelete.Click += new System.EventHandler(this.personDelete_Click);
             // 
-            // colType
+            // colApplications
             // 
-            this.colType.AspectName = "Type";
-            this.colType.Text = "Type";
+            this.colApplications.AspectName = "Applications";
+            this.colApplications.Text = "Applications";
+            // 
+            // colTarget
+            // 
+            this.colTarget.AspectName = "Target";
+            this.colTarget.Text = "Taget";
+            // 
+            // colDeadline
+            // 
+            this.colDeadline.AspectName = "Deadline";
+            this.colDeadline.Text = "Deadline";
             // 
             // MainForm
             // 
@@ -959,6 +983,9 @@
         private System.Windows.Forms.RibbonOrbMenuItem itmExit;
         private System.Windows.Forms.RibbonOrbMenuItem itmAbout;
         private BrightIdeasSoftware.OLVColumn colType;
+        private BrightIdeasSoftware.OLVColumn colDeadline;
+        private BrightIdeasSoftware.OLVColumn colTarget;
+        private BrightIdeasSoftware.OLVColumn colApplications;
 
 
     }

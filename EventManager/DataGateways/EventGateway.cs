@@ -34,8 +34,7 @@ namespace EventManager.DataGateways
             Event e = new Event();
 
             try
-            {
-
+            {                
                 e.ID = Convert.ToInt32(eventData["id"]);
                 e.Name = eventData["name"];
                 e.Location = eventData["location"];
@@ -46,6 +45,10 @@ namespace EventManager.DataGateways
                 e.Price = Convert.ToDouble(eventData["price"]);
                 e.Cv = Convert.ToInt32(eventData["cv"]);
                 e.Hired = Convert.ToInt32(eventData["hired"]);
+                e.Applications = Convert.ToInt32(eventData["appCount"]);
+                e.Target = Convert.ToInt32(eventData["target"]);
+                e.Feedback = eventData["feedback"];
+                e.Deadline = DateTime.Parse(eventData["deadline"]);
 
                 loadPersons(e);
             }
@@ -92,22 +95,30 @@ namespace EventManager.DataGateways
                          + "name=\"" + e.Name + "\","
                          + "location=\"" + e.Location + "\","
                          + "description=\"" + e.Description + "\","
-                         + "date=\"" + e.Date + "\","
+                         + "date=\"" + e.Date.ToString("g") + "\","
+                         + "deadline=\"" + e.Deadline.ToString("g") + "\","
                          + "icon=" + e.Icon + ","
                          + "price=" + e.Price + ","
                          + "cv=" + e.Cv + ","
                          + "hired=" + e.Hired + ","
-                         + "comment=\"" + e.Comment + "\" "
+                         + "comment=\"" + e.Comment + "\", "
+                         + "appCount=" + e.Applications + ","
+                         + "target=" + e.Target + ","
+                         + "feedback=\"" + e.Feedback + "\" "
                          + "WHERE id=" + e.ID
-                        );
+                        );                
             }
             else
             {//INSERT
                 int id = Convert.ToInt32(db.query("SELECT coalesce(max(id),0) as max FROM events")[0]["max"]) + 1;
                 e.ID = id;
-                db.query( "INSERT INTO events(id,name,location,description,date,icon,price,cv,hired,comment)"
-                         +"VALUES("+e.ID+",\""+e.Name+"\",\""+e.Location+"\",\""+e.Description+"\",\""+e.Date+"\","
-                         +e.Icon+","+e.Price+","+e.Cv+","+e.Hired+",\""+e.Comment+"\");"
+                db.query( "INSERT INTO events(id,name,location,description,date,icon,price,cv,hired,comment,"
+                         + "deadline,appCount,target,feedback) "
+                         + "VALUES(" + e.ID + ",\"" + e.Name + "\",\"" + e.Location + "\",\"" + e.Description + "\",\""
+                         + e.Date + "\"," + e.Icon + "," + e.Price + "," + e.Cv + "," + e.Hired + ",\"" + e.Comment + "\""
+                         + ",\"" + e.Deadline + "\"," + e.Applications + "," + e.Target
+                         + ",\"" + e.Feedback + "\"" 
+                         +");"
                         );
             }
 

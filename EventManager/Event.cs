@@ -14,12 +14,40 @@ namespace EventManager
         private string _description = "";
         private string _comments = "";
         private string _location = "";
-        private DateTime _date = new DateTime(2015,1,1);
-        private int _icon = -1;
+        private DateTime _date = DateTime.Now;
         private double _price = 0;
+        private int _icon = -1;
         private int _cv = 0;
         private int _hired = 0;
+        private int _applications = 0;
+        private int _target = 0;
+        private string _feedback = "";
+        private DateTime _deadline = DateTime.Now;
         private EventPersons _persons = new EventPersons();
+
+        public DateTime Deadline
+        {
+            get { return _deadline; }
+            set { _deadline = value; }
+        }
+
+        public string Feedback
+        {
+            get { return _feedback; }
+            set { _feedback = value; }
+        }
+
+        public int Applications
+        {
+            get { return _applications; }
+            set { _applications = value; }
+        }
+
+        public int Target
+        {
+            get { return _target; }
+            set { _target = value; }
+        }
 
         public EventPersons Persons
         {

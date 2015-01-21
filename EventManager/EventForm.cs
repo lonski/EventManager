@@ -73,16 +73,36 @@ namespace EventManager
             {
                 cName.Text = _event.Name;
                 cLoaction.Text = _event.Location;
-                cDate.Value = _event.Date;                
+                cDate.Value = _event.Date;
+                cDeadline.Value = _event.Date;
                 cPrice.Value = Convert.ToDecimal(_event.Price);
                 cCv.Value = _event.Cv;
                 cHired.Value = _event.Hired;
                 cDescription.Text = _event.Description;
                 cComments.Text = _event.Comment;
-                     
+                cTarget.Value = _event.Target;
+                cApp.Value = _event.Applications;
+                cFeedback.Text = _event.Feedback;
+     
                 fillPersonList();
                 autosizePersonsColumns();
             }
+        }
+
+        public void saveEvent()
+        {
+            _event.Name = cName.Text;
+            _event.Location = cLoaction.Text;
+            _event.Date = cDate.Value;
+            _event.Deadline = cDeadline.Value;
+            _event.Price = Convert.ToDouble(cPrice.Value);
+            _event.Cv = Convert.ToInt32(cCv.Value);
+            _event.Hired = Convert.ToInt32(cHired.Value);
+            _event.Description = cDescription.Text;
+            _event.Comment = cComments.Text;
+            _event.Target = Convert.ToInt32(cTarget.Value);
+            _event.Applications = Convert.ToInt32(cApp.Value);
+            _event.Feedback = cFeedback.Text;
         }
 
         private void fillPersonList()
@@ -104,18 +124,6 @@ namespace EventManager
             ePersons.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
             ePersons.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
             colType.Width = 0;
-        }
-
-        public void saveEvent()
-        {
-            _event.Name = cName.Text;
-            _event.Location = cLoaction.Text;
-            _event.Date = cDate.Value;
-            _event.Price = Convert.ToDouble(cPrice.Value);
-            _event.Cv = Convert.ToInt32(cCv.Value);
-            _event.Hired = Convert.ToInt32(cHired.Value);
-            _event.Description = cDescription.Text;
-            _event.Comment = cComments.Text;                        
         }
 
         private void btnClose_Click(object sender, EventArgs e)

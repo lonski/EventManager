@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,14 +35,15 @@ namespace EventManager
 
                 tabControl.ItemSize = new Size(0, 1);
 
-                loadAllData();
+                
                 if (!_dbOK) itmSettings_Click(this, null);
                 
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Error1", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            loadAllData();
         }
 
         private void initalizePersonList()
@@ -74,7 +76,7 @@ namespace EventManager
             {
                 fetchEvents();
                 fetchPersons();
-                initalizeEventList();                
+                initalizeEventList();
                 reloadCalendarItems();
                 populateEvents();
                 populatePersons();
@@ -83,7 +85,7 @@ namespace EventManager
             catch (System.Data.SQLite.SQLiteException sqlEx)
             {
                 _dbOK = false;
-                MessageBox.Show("Can not fetch data from database: " + Properties.Settings.Default.DatabasePath, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Can not fetch data from database: " + Properties.Settings.Default.DatabasePath + " \n" + sqlEx.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (Exception ex)
             {
@@ -119,6 +121,7 @@ namespace EventManager
 
         public void addNewEvent(Event e)
         {
+            _eventGateway.write(e);
             _events.Add(e);
             populateEvents();
         }
@@ -229,10 +232,16 @@ namespace EventManager
                 DateTime date = (DateTime)dateObj;
                 return date.ToString("dd/MM/yyyy");
             };
+
+            colDeadline.AspectToStringConverter = delegate(object dateObj)
+            {
+                DateTime date = (DateTime)dateObj;
+                return date.ToString("dd/MM/yyyy");
+            };
                         
             colPrice.AspectToStringConverter = delegate(object dateObj)
-            {                
-                return String.Format("{0:C}", dateObj);
+            {
+                return String.Format(new CultureInfo("pl-PL"), "{0:C}", dateObj);
             };   
         }
 
@@ -473,7 +482,7 @@ namespace EventManager
                 form.ShowDialog();
 
                 if (form.DialogResult == DialogResult.OK)
-                {
+                {                    
                     addNewPerson(form.Person);
                 }
             }
