@@ -65,6 +65,8 @@
             this.cApp = new System.Windows.Forms.NumericUpDown();
             this.label7 = new System.Windows.Forms.Label();
             this.cFeedback = new System.Windows.Forms.TextBox();
+            this.colorDialog = new System.Windows.Forms.ColorDialog();
+            this.colorPanel = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.cPrice)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cCv)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cHired)).BeginInit();
@@ -77,7 +79,7 @@
             // 
             this.cName.Location = new System.Drawing.Point(81, 12);
             this.cName.Name = "cName";
-            this.cName.Size = new System.Drawing.Size(207, 20);
+            this.cName.Size = new System.Drawing.Size(180, 20);
             this.cName.TabIndex = 0;
             // 
             // lName
@@ -451,11 +453,21 @@
             this.cFeedback.Size = new System.Drawing.Size(342, 98);
             this.cFeedback.TabIndex = 36;
             // 
+            // colorPanel
+            // 
+            this.colorPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.colorPanel.Location = new System.Drawing.Point(267, 12);
+            this.colorPanel.Name = "colorPanel";
+            this.colorPanel.Size = new System.Drawing.Size(21, 21);
+            this.colorPanel.TabIndex = 38;
+            this.colorPanel.Click += new System.EventHandler(this.colorPanel_Click);
+            // 
             // EventForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(658, 464);
+            this.Controls.Add(this.colorPanel);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.cFeedback);
             this.Controls.Add(this.label5);
@@ -540,5 +552,7 @@
         private System.Windows.Forms.NumericUpDown cApp;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox cFeedback;
+        private System.Windows.Forms.ColorDialog colorDialog;
+        private System.Windows.Forms.Panel colorPanel;
     }
 }

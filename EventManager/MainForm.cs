@@ -34,14 +34,13 @@ namespace EventManager
                 updateCalendarPeriod();
 
                 tabControl.ItemSize = new Size(0, 1);
-
-                
+                                
                 if (!_dbOK) itmSettings_Click(this, null);
                 
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error1", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             loadAllData();
         }
@@ -248,7 +247,7 @@ namespace EventManager
         private CalendarItem createCalendarItem(Event e)
         {
             CalendarItem item = new CalendarItem(calendar, e.Date, e.Date, e.Name);
-            item.BackgroundColor = Color.Lime;
+            item.BackgroundColor = e.Color;
             item.Tag = e.ID;
             return item;
         }

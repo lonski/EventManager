@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace EventManager.DataGateways
 {
@@ -47,6 +48,9 @@ namespace EventManager.DataGateways
                 e.Applications = Convert.ToInt32(eventData["appCount"]);
                 e.Target = Convert.ToInt32(eventData["target"]);
                 e.Feedback = eventData["feedback"];
+
+                string eventColor = eventData["color"];
+                e.Color = eventColor.Equals("") ? Color.Lime : ColorTranslator.FromHtml(eventColor);
 
                 string eventDate = eventData["date"];
                 e.Date = eventDate.Equals("") ? DateTime.Now : DateTime.Parse(eventDate);
@@ -108,6 +112,7 @@ namespace EventManager.DataGateways
                          + "comment=\"" + e.Comment + "\", "
                          + "appCount=" + e.Applications + ","
                          + "target=" + e.Target + ","
+                         + "color=\"" + ColorTranslator.ToHtml(e.Color) + "\", "
                          + "feedback=\"" + e.Feedback + "\" "
                          + "WHERE id=" + e.ID
                         );                
@@ -117,10 +122,10 @@ namespace EventManager.DataGateways
                 int id = Convert.ToInt32(db.query("SELECT coalesce(max(id),0) as max FROM events")[0]["max"]) + 1;
                 e.ID = id;
                 db.query( "INSERT INTO events(id,name,location,description,date,icon,price,cv,hired,comment,"
-                         + "deadline,appCount,target,feedback) "
+                         + "deadline,appCount,target,color,feedback) "
                          + "VALUES(" + e.ID + ",\"" + e.Name + "\",\"" + e.Location + "\",\"" + e.Description + "\",\""
                          + e.Date + "\"," + e.Icon + "," + e.Price + "," + e.Cv + "," + e.Hired + ",\"" + e.Comment + "\""
-                         + ",\"" + e.Deadline + "\"," + e.Applications + "," + e.Target
+                         + ",\"" + e.Deadline + "\"," + e.Applications + "," + e.Target + ",\"" + ColorTranslator.ToHtml(e.Color) + "\""
                          + ",\"" + e.Feedback + "\"" 
                          +");"
                         );

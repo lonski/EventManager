@@ -83,6 +83,7 @@ namespace EventManager
                 cTarget.Value = _event.Target;
                 cApp.Value = _event.Applications;
                 cFeedback.Text = _event.Feedback;
+                colorPanel.BackColor = _event.Color;
      
                 fillPersonList();
                 autosizePersonsColumns();
@@ -103,6 +104,7 @@ namespace EventManager
             _event.Target = Convert.ToInt32(cTarget.Value);
             _event.Applications = Convert.ToInt32(cApp.Value);
             _event.Feedback = cFeedback.Text;
+            _event.Color = colorPanel.BackColor;
         }
 
         private void fillPersonList()
@@ -260,6 +262,15 @@ namespace EventManager
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }  
+        }
+
+        private void colorPanel_Click(object sender, EventArgs e)
+        {
+            DialogResult r = colorDialog.ShowDialog();
+            if ( r == DialogResult.OK)
+            {
+                colorPanel.BackColor = colorDialog.Color;
+            }
         }        
     }
 }

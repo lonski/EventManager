@@ -4,7 +4,8 @@ using System.Linq;
 using System.Text;
 
 namespace EventManager
-{    
+{
+    using System.Drawing;
     using EventPersons = List<int>;
 
     public class Event
@@ -23,7 +24,14 @@ namespace EventManager
         private int _target = 0;
         private string _feedback = "";
         private DateTime _deadline = DateTime.Now;
+        private Color _color = Color.Lime;
         private EventPersons _persons = new EventPersons();
+
+        public Color Color
+        {
+            get { return _color; }
+            set { _color = value; }
+        }
 
         public DateTime Deadline
         {
