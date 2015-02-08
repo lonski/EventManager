@@ -34,7 +34,10 @@
             this.colName = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.colPhone = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.colEmail = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.btnChoose = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.ePersons)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // ePersons
@@ -54,7 +57,7 @@
             this.ePersons.FullRowSelect = true;
             this.ePersons.Location = new System.Drawing.Point(0, 0);
             this.ePersons.Name = "ePersons";
-            this.ePersons.Size = new System.Drawing.Size(603, 475);
+            this.ePersons.Size = new System.Drawing.Size(603, 447);
             this.ePersons.TabIndex = 25;
             this.ePersons.UseCompatibleStateImageBehavior = false;
             this.ePersons.View = System.Windows.Forms.View.Details;
@@ -93,15 +96,36 @@
             this.colEmail.Groupable = false;
             this.colEmail.Text = "E-mail";
             // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.btnChoose);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel1.Location = new System.Drawing.Point(0, 447);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(603, 28);
+            this.panel1.TabIndex = 26;
+            // 
+            // btnChoose
+            // 
+            this.btnChoose.Location = new System.Drawing.Point(525, 3);
+            this.btnChoose.Name = "btnChoose";
+            this.btnChoose.Size = new System.Drawing.Size(75, 23);
+            this.btnChoose.TabIndex = 0;
+            this.btnChoose.Text = "Choose";
+            this.btnChoose.UseVisualStyleBackColor = true;
+            this.btnChoose.Click += new System.EventHandler(this.btnChoose_Click);
+            // 
             // PersonList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(603, 475);
             this.Controls.Add(this.ePersons);
+            this.Controls.Add(this.panel1);
             this.Name = "PersonList";
             this.Text = "Person list";
             ((System.ComponentModel.ISupportInitialize)(this.ePersons)).EndInit();
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -114,5 +138,7 @@
         private BrightIdeasSoftware.OLVColumn colName;
         private BrightIdeasSoftware.OLVColumn colPhone;
         private BrightIdeasSoftware.OLVColumn colEmail;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button btnChoose;
     }
 }

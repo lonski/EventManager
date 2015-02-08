@@ -55,6 +55,11 @@ namespace EventManager
         {
             Close();
         }
+
+        private void btnChoose_Click(object sender, EventArgs e)
+        {
+            ePersons_DoubleClick(this, null);
+        }
     }
 
 }

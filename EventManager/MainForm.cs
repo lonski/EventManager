@@ -1,4 +1,5 @@
-﻿using EventManager.DataGateways;
+﻿using BrightIdeasSoftware;
+using EventManager.DataGateways;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,17 +17,20 @@ namespace EventManager
     public partial class MainForm : Form
     {
         private bool _dbOK = false;
-        private DateTime _calDate = new DateTime(2015, 1, 1);
+        private DateTime _calDate = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
         
         private EventGateway _eventGateway = new EventGateway();
         private PersonGateway _personsGateway = new PersonGateway();
+        private TargetGateway _targetsGateway = new TargetGateway();
 
+        private List<Event> _filteredEvents = null;
         private List<Event> _events = null;
-        private List<Person> _persons = null;        
+        private List<Person> _persons = null;
+        private List<string> _targets = null;
         private List<CalendarItem> _calendarItems = new List<CalendarItem>();
         
         public MainForm()
-        {
+        {            
             try
             {
                 InitializeComponent();
@@ -36,6 +40,12 @@ namespace EventManager
                 tabControl.ItemSize = new Size(0, 1);
                                 
                 if (!_dbOK) itmSettings_Click(this, null);
+
+                rtabCalendar.Panels.Clear();
+                foreach(RibbonPanel panel in rtabEvents.Panels)
+                {
+                    rtabCalendar.Panels.Add(panel);
+                }
                 
             }
             catch (Exception ex)
@@ -43,6 +53,7 @@ namespace EventManager
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             loadAllData();
+            resizeEventListColumns();
         }
 
         private void initalizePersonList()
@@ -75,8 +86,8 @@ namespace EventManager
             {
                 fetchEvents();
                 fetchPersons();
+                fetchTargets();
                 initalizeEventList();
-                reloadCalendarItems();
                 populateEvents();
                 populatePersons();
                 _dbOK = true;
@@ -95,6 +106,11 @@ namespace EventManager
         public List<Person> Persons
         {
             get { return _persons; }
+        }
+
+        public List<string> Targets
+        {
+            get { return _targets; }
         }
 
         public List<Event> Events
@@ -122,6 +138,7 @@ namespace EventManager
         {
             _eventGateway.write(e);
             _events.Add(e);
+            rbtnFilter.Checked = false;
             populateEvents();
         }
 
@@ -130,13 +147,12 @@ namespace EventManager
             _eventGateway.erase(e);
 
             fetchEvents();
-            reloadCalendarItems();
             populateEvents();
         }
 
         public void populateEvents()
         {
-            reloadCalendarItems();
+            reloadCalendarItems( rbtnFilter.Checked ? _filteredEvents : _events );
             populateCalendar();
             populateEventList();
         }
@@ -153,7 +169,11 @@ namespace EventManager
         private void populateEventList()
         {
             eventList.Items.Clear();
-            eventList.AddObjects(_events);
+            eventList.AddObjects( rbtnFilter.Checked ? _filteredEvents : _events );            
+        }
+
+        private void resizeEventListColumns()
+        {
             eventList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
             eventList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
         }
@@ -171,7 +191,9 @@ namespace EventManager
         }
 
         private void fetchEvents()
-        {                        
+        {
+            rbtnFilter.Checked = false;
+            _filteredEvents = null;
             _events = _eventGateway.fetch_all();            
         }
 
@@ -180,10 +202,15 @@ namespace EventManager
             _persons = _personsGateway.fetch_all();
         }
 
-        private void reloadCalendarItems()
+        private void fetchTargets()
+        {
+            _targets = _targetsGateway.fetch_all();
+        }
+
+        private void reloadCalendarItems(List<Event> events)
         {
             _calendarItems.Clear();
-            foreach (Event e in _events)
+            foreach (Event e in events)
             {
                 _calendarItems.Add(createCalendarItem(e));
             }
@@ -286,12 +313,13 @@ namespace EventManager
 
         private void ribbonButton2_Click(object sender, EventArgs e)
         {            
-            tabControl.SelectedIndex = 0;
+            tabControl.SelectedIndex = 0;//calendar
         }
 
         private void ribbonButton3_Click(object sender, EventArgs e)
         {
-            tabControl.SelectedIndex = 1;
+            eventList.UpdateObjects(_events);
+            tabControl.SelectedIndex = 1;//event list
         }
 
         private void calendar_LoadItems(object sender, CalendarLoadEventArgs e)
@@ -338,6 +366,12 @@ namespace EventManager
             {
                 if (!checkDB()) return;
                 EventForm form = new EventForm(this, EventForm.Mode.ADD);
+
+                if (tabControl.SelectedIndex == 0 && calendar.SelectedElementStart != null) //calndar active then set date from calendar
+                {
+                    form.Date = calendar.SelectedElementStart.Date;
+                }
+
                 form.ShowDialog();
 
                 if (form.DialogResult == DialogResult.OK)
@@ -414,7 +448,7 @@ namespace EventManager
 
         private void btnPersons_Click(object sender, EventArgs e)
         {
-            tabControl.SelectedIndex = 2;
+            tabControl.SelectedIndex = 2;//persons
         }
 
         private void ribbon2_ActiveTabChanged(object sender, EventArgs e)
@@ -559,5 +593,58 @@ namespace EventManager
             AboutForm form = new AboutForm();
             form.Show();
         }
+
+        private void calendar_DoubleClick(object sender, EventArgs e)
+        {
+            if (calendar.SelectedElementStart != null)
+            {
+                eventAdd_Click(this, null);
+            }
+        }
+
+        private void ribbonButton12_Click(object sender, EventArgs e)
+        {
+            if (rbtnFilter.Checked)
+            {
+                removeEventListFilters();
+            }
+            else
+            {
+                FilterForm form = new FilterForm(_persons);                                
+                form.ShowDialog();
+                eventList.Items.Clear();
+                           
+                if (form.DialogResult == DialogResult.OK)
+                {
+                    rbtnFilter.Checked = true;
+                    _filteredEvents = _events.FindAll(evt => evt.Persons.Intersect(form.Attendees).Any());
+                    populateEvents();
+                }
+                else
+                {                    
+                    removeEventListFilters();
+                }
+            }            
+        }
+
+        private void removeEventListFilters()
+        {
+            rbtnFilter.Checked = false;
+            _filteredEvents = null;
+            populateEvents();
+        }
+
+        public void refreshPersonList()
+        {
+            populatePersons();
+        }
+
+        private void ribbonButton12_Click_1(object sender, EventArgs e)
+        {
+            TargetsForm form = new TargetsForm(_targetsGateway);
+            form.ShowDialog();
+            _targets = form.Targets;
+        }
+
     }
 }

@@ -21,7 +21,7 @@ namespace EventManager
         private int _cv = 0;
         private int _hired = 0;
         private int _applications = 0;
-        private int _target = 0;
+        private string _target = "";
         private string _feedback = "";
         private DateTime _deadline = DateTime.Now;
         private Color _color = Color.Lime;
@@ -51,7 +51,7 @@ namespace EventManager
             set { _applications = value; }
         }
 
-        public int Target
+        public string Target
         {
             get { return _target; }
             set { _target = value; }

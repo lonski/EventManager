@@ -15,3 +15,30 @@ j:\EventManager\EventManager\EventManager\bin\Debug\EventManager.exe.manifest
 j:\EventManager\EventManager\EventManager\bin\Debug\EventManager.application
 j:\EventManager\EventManager\EventManager\obj\Debug\EventManager.exe.manifest
 j:\EventManager\EventManager\EventManager\obj\Debug\EventManager.application
+d:\Sources\EventManager\EventManager\EventManager\obj\Debug\EventManager.csprojResolveAssemblyReference.cache
+d:\Sources\EventManager\EventManager\EventManager\bin\Debug\Event Manager.exe.config
+d:\Sources\EventManager\EventManager\EventManager\bin\Debug\Event Manager.exe.manifest
+d:\Sources\EventManager\EventManager\EventManager\bin\Debug\Event Manager.application
+d:\Sources\EventManager\EventManager\EventManager\bin\Debug\Event Manager.exe
+d:\Sources\EventManager\EventManager\EventManager\bin\Debug\Event Manager.pdb
+d:\Sources\EventManager\EventManager\EventManager\bin\Debug\ObjectListView.dll
+d:\Sources\EventManager\EventManager\EventManager\bin\Debug\System.Windows.Forms.Calendar.dll
+d:\Sources\EventManager\EventManager\EventManager\bin\Debug\System.Windows.Forms.Ribbon35.dll
+d:\Sources\EventManager\EventManager\EventManager\bin\Debug\ObjectListView.pdb
+d:\Sources\EventManager\EventManager\EventManager\bin\Debug\ObjectListView.xml
+d:\Sources\EventManager\EventManager\EventManager\bin\Debug\System.Windows.Forms.Calendar.pdb
+d:\Sources\EventManager\EventManager\EventManager\obj\Debug\EventManager.AboutForm.resources
+d:\Sources\EventManager\EventManager\EventManager\obj\Debug\EventManager.EventForm.resources
+d:\Sources\EventManager\EventManager\EventManager\obj\Debug\EventManager.MainForm.resources
+d:\Sources\EventManager\EventManager\EventManager\obj\Debug\EventManager.PersonForm.resources
+d:\Sources\EventManager\EventManager\EventManager\obj\Debug\EventManager.PersonList.resources
+d:\Sources\EventManager\EventManager\EventManager\obj\Debug\EventManager.Properties.Resources.resources
+d:\Sources\EventManager\EventManager\EventManager\obj\Debug\EventManager.SettingsForm.resources
+d:\Sources\EventManager\EventManager\EventManager\obj\Debug\EventManager.csproj.GenerateResource.Cache
+d:\Sources\EventManager\EventManager\EventManager\obj\Debug\Event Manager.exe.manifest
+d:\Sources\EventManager\EventManager\EventManager\obj\Debug\Event Manager.application
+d:\Sources\EventManager\EventManager\EventManager\obj\Debug\Event Manager.exe
+d:\Sources\EventManager\EventManager\EventManager\obj\Debug\Event Manager.pdb
+d:\Sources\EventManager\EventManager\EventManager\obj\Debug\EventManager.FilterForm.resources
+d:\Sources\EventManager\EventManager\EventManager\obj\Debug\EventManager.TargetsForm.resources
+d:\Sources\EventManager\EventManager\EventManager\obj\Debug\EventManager.InputBox.resources

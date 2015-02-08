@@ -60,18 +60,17 @@
             this.label4 = new System.Windows.Forms.Label();
             this.cDeadline = new System.Windows.Forms.DateTimePicker();
             this.label5 = new System.Windows.Forms.Label();
-            this.cTarget = new System.Windows.Forms.NumericUpDown();
             this.label6 = new System.Windows.Forms.Label();
             this.cApp = new System.Windows.Forms.NumericUpDown();
             this.label7 = new System.Windows.Forms.Label();
             this.cFeedback = new System.Windows.Forms.TextBox();
             this.colorDialog = new System.Windows.Forms.ColorDialog();
             this.colorPanel = new System.Windows.Forms.Panel();
+            this.cTarget = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.cPrice)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cCv)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cHired)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ePersons)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cTarget)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cApp)).BeginInit();
             this.SuspendLayout();
             // 
@@ -190,7 +189,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(165, 148);
+            this.label1.Location = new System.Drawing.Point(128, 148);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(21, 13);
             this.label1.TabIndex = 13;
@@ -198,7 +197,7 @@
             // 
             // cCv
             // 
-            this.cCv.Location = new System.Drawing.Point(215, 146);
+            this.cCv.Location = new System.Drawing.Point(155, 146);
             this.cCv.Maximum = new decimal(new int[] {
             1000000,
             0,
@@ -210,14 +209,14 @@
             0,
             -2147483648});
             this.cCv.Name = "cCv";
-            this.cCv.Size = new System.Drawing.Size(73, 20);
+            this.cCv.Size = new System.Drawing.Size(41, 20);
             this.cCv.TabIndex = 12;
             this.cCv.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(164, 174);
+            this.label2.Location = new System.Drawing.Point(209, 148);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(32, 13);
             this.label2.TabIndex = 15;
@@ -225,7 +224,7 @@
             // 
             // cHired
             // 
-            this.cHired.Location = new System.Drawing.Point(215, 172);
+            this.cHired.Location = new System.Drawing.Point(247, 146);
             this.cHired.Maximum = new decimal(new int[] {
             1000000,
             0,
@@ -237,7 +236,7 @@
             0,
             -2147483648});
             this.cHired.Name = "cHired";
-            this.cHired.Size = new System.Drawing.Size(73, 20);
+            this.cHired.Size = new System.Drawing.Size(41, 20);
             this.cHired.TabIndex = 14;
             this.cHired.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -320,9 +319,9 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(306, 12);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(45, 13);
+            this.label3.Size = new System.Drawing.Size(55, 13);
             this.label3.TabIndex = 25;
-            this.label3.Text = "Persons";
+            this.label3.Text = "Attendees";
             // 
             // btnPAdd
             // 
@@ -385,38 +384,20 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(13, 174);
+            this.label5.Location = new System.Drawing.Point(13, 177);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(38, 13);
             this.label5.TabIndex = 35;
             this.label5.Text = "Target";
-            // 
-            // cTarget
-            // 
-            this.cTarget.Location = new System.Drawing.Point(81, 172);
-            this.cTarget.Maximum = new decimal(new int[] {
-            1000000,
-            0,
-            0,
-            0});
-            this.cTarget.Minimum = new decimal(new int[] {
-            1000000,
-            0,
-            0,
-            -2147483648});
-            this.cTarget.Name = "cTarget";
-            this.cTarget.Size = new System.Drawing.Size(73, 20);
-            this.cTarget.TabIndex = 34;
-            this.cTarget.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(14, 148);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(64, 13);
+            this.label6.Size = new System.Drawing.Size(35, 13);
             this.label6.TabIndex = 33;
-            this.label6.Text = "Applications";
+            this.label6.Text = "Forms";
             // 
             // cApp
             // 
@@ -432,7 +413,7 @@
             0,
             -2147483648});
             this.cApp.Name = "cApp";
-            this.cApp.Size = new System.Drawing.Size(73, 20);
+            this.cApp.Size = new System.Drawing.Size(41, 20);
             this.cApp.TabIndex = 32;
             this.cApp.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -462,16 +443,26 @@
             this.colorPanel.TabIndex = 38;
             this.colorPanel.Click += new System.EventHandler(this.colorPanel_Click);
             // 
+            // cTarget
+            // 
+            this.cTarget.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cTarget.FormattingEnabled = true;
+            this.cTarget.Location = new System.Drawing.Point(81, 174);
+            this.cTarget.MaxDropDownItems = 20;
+            this.cTarget.Name = "cTarget";
+            this.cTarget.Size = new System.Drawing.Size(207, 21);
+            this.cTarget.TabIndex = 40;
+            // 
             // EventForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(658, 464);
+            this.Controls.Add(this.cTarget);
             this.Controls.Add(this.colorPanel);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.cFeedback);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.cTarget);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.cApp);
             this.Controls.Add(this.label4);
@@ -506,7 +497,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.cCv)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cHired)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ePersons)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cTarget)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cApp)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -547,12 +537,12 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.DateTimePicker cDeadline;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.NumericUpDown cTarget;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.NumericUpDown cApp;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox cFeedback;
         private System.Windows.Forms.ColorDialog colorDialog;
         private System.Windows.Forms.Panel colorPanel;
+        private System.Windows.Forms.ComboBox cTarget;
     }
 }

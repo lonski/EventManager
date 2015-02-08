@@ -32,6 +32,19 @@ namespace EventManager
             get {return _event;}
         }
 
+        public DateTime Date
+        {
+            set
+            {
+                cDate.Value = value;
+                cDeadline.Value = value;
+            }
+            get
+            {
+                return cDate.Value;
+            }
+        }
+
         public EventForm(MainForm parent, Mode formMode)            
         {
             try
@@ -39,7 +52,9 @@ namespace EventManager
                 InitializeComponent();
                 _parent = parent;
                 applyFormMode(formMode);
-                initaliyePersonList();
+                initalizePersonList();
+
+                cTarget.Items.AddRange(_parent.Targets.ToArray());
             }
             catch (Exception ex)
             {
@@ -47,7 +62,7 @@ namespace EventManager
             }
         }
 
-        private void initaliyePersonList()
+        private void initalizePersonList()
         {
             colType.AspectToStringConverter = delegate(object obj)
             {
@@ -80,7 +95,7 @@ namespace EventManager
                 cHired.Value = _event.Hired;
                 cDescription.Text = _event.Description;
                 cComments.Text = _event.Comment;
-                cTarget.Value = _event.Target;
+                cTarget.Text = _event.Target;
                 cApp.Value = _event.Applications;
                 cFeedback.Text = _event.Feedback;
                 colorPanel.BackColor = _event.Color;
@@ -101,7 +116,7 @@ namespace EventManager
             _event.Hired = Convert.ToInt32(cHired.Value);
             _event.Description = cDescription.Text;
             _event.Comment = cComments.Text;
-            _event.Target = Convert.ToInt32(cTarget.Value);
+            _event.Target = cTarget.Text;
             _event.Applications = Convert.ToInt32(cApp.Value);
             _event.Feedback = cFeedback.Text;
             _event.Color = colorPanel.BackColor;
@@ -196,6 +211,8 @@ namespace EventManager
 
                     if (form.DialogResult == DialogResult.OK)
                     {
+                        _parent.PersonGateway.write(p);
+                        _parent.refreshPersonList();
                         fillPersonList();
                     }
                 }

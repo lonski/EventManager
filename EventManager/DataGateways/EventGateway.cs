@@ -46,7 +46,7 @@ namespace EventManager.DataGateways
                 e.Cv = Convert.ToInt32(eventData["cv"]);
                 e.Hired = Convert.ToInt32(eventData["hired"]);
                 e.Applications = Convert.ToInt32(eventData["appCount"]);
-                e.Target = Convert.ToInt32(eventData["target"]);
+                e.Target = eventData["target"];
                 e.Feedback = eventData["feedback"];
 
                 string eventColor = eventData["color"];
@@ -97,6 +97,25 @@ namespace EventManager.DataGateways
         {
             db.open(db_file);
 
+            try
+            {
+                db.query("ALTER TABLE events ADD COLUMN color VARCHAR(32)");
+                db.query("ALTER TABLE events ADD COLUMN target VARCHAR(256)");
+                db.query("ALTER TABLE events ADD COLUMN deadline VARCHAR(256)");
+                db.query("ALTER TABLE events ADD COLUMN feedback VARCHAR(1024)");
+                db.query("ALTER TABLE events ADD COLUMN appCount INTEGER");
+                db.query("ALTER TABLE events ADD COLUMN comment VARCHAR(1024)");
+                db.query("ALTER TABLE events ADD COLUMN hired INTEGER");
+                db.query("ALTER TABLE events ADD COLUMN cv INTEGER");
+                db.query("ALTER TABLE events ADD COLUMN price NUMERIC");
+                db.query("ALTER TABLE events ADD COLUMN icon INTEGER");
+                db.query("ALTER TABLE events ADD COLUMN date VARCHAR(256)");
+                db.query("ALTER TABLE events ADD COLUMN description VARCHAR(1024)");
+                db.query("ALTER TABLE events ADD COLUMN location VARCHAR(256)");
+                db.query("ALTER TABLE events ADD COLUMN name VARCHAR(256)");
+            }
+            catch(Exception){}
+
             if (db.exists("SELECT 1 FROM events WHERE id=" + e.ID))
             {//UPDATE
                 db.query(  "UPDATE events SET "
@@ -111,7 +130,7 @@ namespace EventManager.DataGateways
                          + "hired=" + e.Hired + ","
                          + "comment=\"" + e.Comment + "\", "
                          + "appCount=" + e.Applications + ","
-                         + "target=" + e.Target + ","
+                         + "target=\"" + e.Target + "\","
                          + "color=\"" + ColorTranslator.ToHtml(e.Color) + "\", "
                          + "feedback=\"" + e.Feedback + "\" "
                          + "WHERE id=" + e.ID
@@ -125,7 +144,7 @@ namespace EventManager.DataGateways
                          + "deadline,appCount,target,color,feedback) "
                          + "VALUES(" + e.ID + ",\"" + e.Name + "\",\"" + e.Location + "\",\"" + e.Description + "\",\""
                          + e.Date + "\"," + e.Icon + "," + e.Price + "," + e.Cv + "," + e.Hired + ",\"" + e.Comment + "\""
-                         + ",\"" + e.Deadline + "\"," + e.Applications + "," + e.Target + ",\"" + ColorTranslator.ToHtml(e.Color) + "\""
+                         + ",\"" + e.Deadline + "\"," + e.Applications + ",\"" + e.Target + "\",\"" + ColorTranslator.ToHtml(e.Color) + "\""
                          + ",\"" + e.Feedback + "\"" 
                          +");"
                         );
