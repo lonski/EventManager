@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using EventManager.DataGateways;
+using BrightIdeasSoftware;
 
 namespace EventManager
 {
@@ -102,6 +103,8 @@ namespace EventManager
      
                 fillPersonList();
                 autosizePersonsColumns();
+
+                fillEventFiles();
             }
         }
 
@@ -136,6 +139,15 @@ namespace EventManager
             }            
         }
 
+        private void fillEventFiles()
+        {
+            eFiles.Items.Clear();
+            if (_event != null)
+            {
+                eFiles.AddObjects(_event.Files);
+            }
+        }
+
         private void autosizePersonsColumns()
         {
             ePersons.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
@@ -145,7 +157,7 @@ namespace EventManager
 
         private void btnClose_Click(object sender, EventArgs e)
         {
-            this.DialogResult = DialogResult.Cancel;
+            this.DialogResult = DialogResult.Cancel;            
             Close();
         }
         
@@ -175,10 +187,12 @@ namespace EventManager
             btnPAdd.Enabled = editable;
             btnPRemove.Enabled = editable;
             btnPEdit.Enabled = editable;
-
+            btnFAdd.Enabled = editable;
+            btnFRemove.Enabled = editable;
+            
             foreach (Control c in this.Controls)
             {
-                if ( !(c is Button) && !(c is Label))
+                if ( !(c is Button) && !(c is Label) && !(c is ObjectListView) )
                     c.Enabled = editable;                
             }
         }
@@ -287,6 +301,59 @@ namespace EventManager
             if ( r == DialogResult.OK)
             {
                 colorPanel.BackColor = colorDialog.Color;
+            }
+        }
+
+        private void btnFAdd_Click(object sender, EventArgs e)
+        {            
+            if ( openFileDlg.ShowDialog() == DialogResult.OK )
+            {
+                string path = openFileDlg.FileName;
+                string subPath = "files\\" + _event.Name;
+
+                string fileName = System.IO.Path.GetFileName(path);
+                string targetPath = AppDomain.CurrentDomain.BaseDirectory + subPath;
+                string destFile = System.IO.Path.Combine(targetPath, fileName);
+
+                if (!System.IO.Directory.Exists(targetPath))
+                {
+                    System.IO.Directory.CreateDirectory(targetPath);
+                }
+
+                System.IO.File.Copy(path, destFile, true);
+
+                _event.addFile(new EventFile(subPath + "\\" + fileName));
+                fillEventFiles();
+            }
+        }
+
+        private void btnExec_Click(object sender, EventArgs e)
+        {
+            EventFile file = (EventFile)eFiles.SelectedObject;
+            if ( file != null )
+            {                
+                System.Diagnostics.Process.Start(file.SubPath);
+            }
+        }
+
+        private void eFiles_DoubleClick(object sender, EventArgs e)
+        {
+            btnExec_Click(this, null);
+        }
+
+        private void btnFRemove_Click(object sender, EventArgs e)
+        {
+            EventFile file = (EventFile)eFiles.SelectedObject;
+            if (file != null)
+            {
+                string msg = "Delete file " + file.Filename + "?";
+
+                if (MessageBox.Show(msg, "Delete file", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+                    == DialogResult.Yes)
+                {
+                    _event.removeFile(file);
+                    fillEventFiles();
+                }
             }
         }        
     }

@@ -42,3 +42,26 @@ d:\Sources\EventManager\EventManager\EventManager\obj\Debug\Event Manager.pdb
 d:\Sources\EventManager\EventManager\EventManager\obj\Debug\EventManager.FilterForm.resources
 d:\Sources\EventManager\EventManager\EventManager\obj\Debug\EventManager.TargetsForm.resources
 d:\Sources\EventManager\EventManager\EventManager\obj\Debug\EventManager.InputBox.resources
+e:\Projects\EventManager\EventManager\EventManager\bin\Debug\Event Manager.exe.config
+e:\Projects\EventManager\EventManager\EventManager\bin\Debug\Event Manager.exe.manifest
+e:\Projects\EventManager\EventManager\EventManager\bin\Debug\Event Manager.application
+e:\Projects\EventManager\EventManager\EventManager\bin\Debug\Event Manager.exe
+e:\Projects\EventManager\EventManager\EventManager\bin\Debug\Event Manager.pdb
+e:\Projects\EventManager\EventManager\EventManager\bin\Debug\System.Windows.Forms.Calendar.dll
+e:\Projects\EventManager\EventManager\EventManager\bin\Debug\System.Windows.Forms.Calendar.pdb
+e:\Projects\EventManager\EventManager\EventManager\obj\Debug\EventManager.csprojResolveAssemblyReference.cache
+e:\Projects\EventManager\EventManager\EventManager\obj\Debug\EventManager.AboutForm.resources
+e:\Projects\EventManager\EventManager\EventManager\obj\Debug\EventManager.EventForm.resources
+e:\Projects\EventManager\EventManager\EventManager\obj\Debug\EventManager.FilterForm.resources
+e:\Projects\EventManager\EventManager\EventManager\obj\Debug\EventManager.InputBox.resources
+e:\Projects\EventManager\EventManager\EventManager\obj\Debug\EventManager.MainForm.resources
+e:\Projects\EventManager\EventManager\EventManager\obj\Debug\EventManager.PersonForm.resources
+e:\Projects\EventManager\EventManager\EventManager\obj\Debug\EventManager.PersonList.resources
+e:\Projects\EventManager\EventManager\EventManager\obj\Debug\EventManager.Properties.Resources.resources
+e:\Projects\EventManager\EventManager\EventManager\obj\Debug\EventManager.SettingsForm.resources
+e:\Projects\EventManager\EventManager\EventManager\obj\Debug\EventManager.TargetsForm.resources
+e:\Projects\EventManager\EventManager\EventManager\obj\Debug\EventManager.csproj.GenerateResource.Cache
+e:\Projects\EventManager\EventManager\EventManager\obj\Debug\Event Manager.exe.manifest
+e:\Projects\EventManager\EventManager\EventManager\obj\Debug\Event Manager.application
+e:\Projects\EventManager\EventManager\EventManager\obj\Debug\Event Manager.exe
+e:\Projects\EventManager\EventManager\EventManager\obj\Debug\Event Manager.pdb

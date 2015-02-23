@@ -14,7 +14,9 @@ namespace EventManager
         public SettingsForm()
         {
             InitializeComponent();
-            dbPath.Text = Properties.Settings.Default.DatabasePath;
+
+            IniFile ini = new IniFile(MainForm.SettingFile);
+            dbPath.Text = ini.IniReadValue("config", "database");            
         }
         
         private void btnBrowse_Click(object sender, EventArgs e)
@@ -28,8 +30,9 @@ namespace EventManager
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Properties.Settings.Default.DatabasePath = dbPath.Text;
-            Properties.Settings.Default.Save();
+            IniFile ini = new IniFile(MainForm.SettingFile);
+            ini.IniWriteValue("config", "database", dbPath.Text);
+            
             Close();
         }
     }

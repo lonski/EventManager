@@ -101,6 +101,7 @@
     <Compile Include="DBDrivers\IDBDriver.cs" />
     <Compile Include="DBDrivers\SqlLiteDriver.cs" />
     <Compile Include="Event.cs" />
+    <Compile Include="EventFile.cs" />
     <Compile Include="EventForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -113,6 +114,7 @@
     <Compile Include="FilterForm.Designer.cs">
       <DependentUpon>FilterForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="IniFile.cs" />
     <Compile Include="InputBox.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -14,8 +14,11 @@ using System.Windows.Forms.Calendar;
 
 namespace EventManager
 {
+
     public partial class MainForm : Form
     {
+        public static string SettingFile = AppDomain.CurrentDomain.BaseDirectory + "\\settings.ini";
+
         private bool _dbOK = false;
         private DateTime _calDate = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
         
@@ -36,11 +39,8 @@ namespace EventManager
                 InitializeComponent();
                 initalizePersonList();
                 updateCalendarPeriod();
-
                 tabControl.ItemSize = new Size(0, 1);
-                                
-                if (!_dbOK) itmSettings_Click(this, null);
-
+                loadSettings();
                 rtabCalendar.Panels.Clear();
                 foreach(RibbonPanel panel in rtabEvents.Panels)
                 {
@@ -74,10 +74,12 @@ namespace EventManager
             };
         }
 
-        private void applySettings()
+        private void loadSettings()
         {
-            _eventGateway.DBFile = Properties.Settings.Default.DatabasePath;
-            _personsGateway.DBFile = Properties.Settings.Default.DatabasePath;
+            IniFile ini = new IniFile(MainForm.SettingFile);
+
+            _eventGateway.DBFile = ini.IniReadValue("config", "database");
+            _personsGateway.DBFile = ini.IniReadValue("config", "database");
         }
 
         private void loadAllData()
@@ -571,7 +573,7 @@ namespace EventManager
             {
                 SettingsForm form = new SettingsForm();
                 form.ShowDialog();
-                applySettings();
+                loadSettings();
                 loadAllData();
             }
             catch (Exception ex)

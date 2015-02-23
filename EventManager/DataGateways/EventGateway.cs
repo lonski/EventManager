@@ -35,7 +35,7 @@ namespace EventManager.DataGateways
             Event e = new Event();
 
             try
-            {                
+            {
                 e.ID = Convert.ToInt32(eventData["id"]);
                 e.Name = eventData["name"];
                 e.Location = eventData["location"];
@@ -59,6 +59,7 @@ namespace EventManager.DataGateways
                 e.Deadline = eventDeadline.Equals("") ? DateTime.Now : DateTime.Parse(eventDeadline);
 
                 loadPersons(e);
+                loadFiles(e);
             }
             catch (Exception ex)
             {
@@ -75,6 +76,16 @@ namespace EventManager.DataGateways
             foreach (Dictionary<string, string> person in persons)
             {
                 e.Persons.Add(Convert.ToInt32(person["person"]));
+            }
+        }
+
+        private void loadFiles(Event e)
+        {
+            List<Dictionary<string, string>> files = db.query("SELECT path FROM eventFiles WHERE event = " + e.ID);
+
+            foreach (Dictionary<string, string> file in files)
+            {
+                e.addFile(new EventFile(file["path"]));
             }
         }
 
@@ -99,20 +110,7 @@ namespace EventManager.DataGateways
 
             try
             {
-                db.query("ALTER TABLE events ADD COLUMN color VARCHAR(32)");
-                db.query("ALTER TABLE events ADD COLUMN target VARCHAR(256)");
-                db.query("ALTER TABLE events ADD COLUMN deadline VARCHAR(256)");
-                db.query("ALTER TABLE events ADD COLUMN feedback VARCHAR(1024)");
-                db.query("ALTER TABLE events ADD COLUMN appCount INTEGER");
-                db.query("ALTER TABLE events ADD COLUMN comment VARCHAR(1024)");
-                db.query("ALTER TABLE events ADD COLUMN hired INTEGER");
-                db.query("ALTER TABLE events ADD COLUMN cv INTEGER");
-                db.query("ALTER TABLE events ADD COLUMN price NUMERIC");
-                db.query("ALTER TABLE events ADD COLUMN icon INTEGER");
-                db.query("ALTER TABLE events ADD COLUMN date VARCHAR(256)");
-                db.query("ALTER TABLE events ADD COLUMN description VARCHAR(1024)");
-                db.query("ALTER TABLE events ADD COLUMN location VARCHAR(256)");
-                db.query("ALTER TABLE events ADD COLUMN name VARCHAR(256)");
+                //db.query("ALTER TABLE events ADD COLUMN color VARCHAR(32)");                
             }
             catch(Exception){}
 
@@ -155,6 +153,12 @@ namespace EventManager.DataGateways
             {
                 addPersonToEvent(e.ID, pID);
             }
+
+            deleteEventFiles(e.ID);
+            foreach( EventFile file in e.Files )
+            {
+                addFileToEvent(e.ID, file);
+            }
             
             db.close();
         }
@@ -174,11 +178,22 @@ namespace EventManager.DataGateways
             db.query("INSERT INTO eventPersons(event, person) VALUES(" + eID + "," + pID + ")");
         }
 
+        public void deleteEventFiles(int eID)
+        {
+            db.query("DELETE FROM eventFiles WHERE event = " + eID);
+        }
+
+        public void addFileToEvent(int eID, EventFile file)
+        {
+            db.query("INSERT INTO eventFiles(event, path) VALUES(" + eID + ",\"" + file.SubPath + "\")");
+        }
+
         public void erase(Event e)
         {
             db.open(db_file);
-            db.query("DELETE FROM eventPersons WHERE event=" + e.ID);
-            db.query("DELETE FROM events WHERE id=" + e.ID);            
+            deleteEventPersons(e.ID);
+            deleteEventFiles(e.ID);            
+            db.query("DELETE FROM events WHERE id=" + e.ID);     
             db.close();
         }
     }

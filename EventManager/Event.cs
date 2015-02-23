@@ -26,6 +26,7 @@ namespace EventManager
         private DateTime _deadline = DateTime.Now;
         private Color _color = Color.Lime;
         private EventPersons _persons = new EventPersons();
+        private List<EventFile> _files = new List<EventFile>();
 
         public Color Color
         {
@@ -121,6 +122,26 @@ namespace EventManager
         {
             get { return _id; }
             set { _id = value; }
+        }
+
+        public List<EventFile> Files
+        {
+            get { return _files; }
+        }
+
+        public void addFile(EventFile file)
+        {
+            _files.Add(file);
+        }
+
+        public void removeFile(EventFile file)
+        {            
+            if ( System.IO.File.Exists(file.SubPath) )
+            { 
+                System.IO.File.Delete(file.SubPath);
+            }
+
+            _files.Remove(file);
         }
     }
 }

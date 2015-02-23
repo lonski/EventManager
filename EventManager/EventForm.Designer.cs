@@ -67,11 +67,19 @@
             this.colorDialog = new System.Windows.Forms.ColorDialog();
             this.colorPanel = new System.Windows.Forms.Panel();
             this.cTarget = new System.Windows.Forms.ComboBox();
+            this.eFiles = new BrightIdeasSoftware.ObjectListView();
+            this.btnFRemove = new System.Windows.Forms.Button();
+            this.btnFAdd = new System.Windows.Forms.Button();
+            this.label8 = new System.Windows.Forms.Label();
+            this.oFileName = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.openFileDlg = new System.Windows.Forms.OpenFileDialog();
+            this.btnExec = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.cPrice)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cCv)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cHired)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ePersons)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cApp)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.eFiles)).BeginInit();
             this.SuspendLayout();
             // 
             // cName
@@ -242,7 +250,7 @@
             // 
             // btnOk
             // 
-            this.btnOk.Location = new System.Drawing.Point(495, 434);
+            this.btnOk.Location = new System.Drawing.Point(490, 571);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(75, 23);
             this.btnOk.TabIndex = 16;
@@ -252,7 +260,7 @@
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(576, 434);
+            this.btnClose.Location = new System.Drawing.Point(571, 571);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(75, 23);
             this.btnClose.TabIndex = 17;
@@ -355,7 +363,7 @@
             // 
             // btnEdit
             // 
-            this.btnEdit.Location = new System.Drawing.Point(13, 435);
+            this.btnEdit.Location = new System.Drawing.Point(8, 572);
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Size = new System.Drawing.Size(75, 23);
             this.btnEdit.TabIndex = 29;
@@ -420,7 +428,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(310, 314);
+            this.label7.Location = new System.Drawing.Point(16, 434);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(55, 13);
             this.label7.TabIndex = 37;
@@ -428,10 +436,10 @@
             // 
             // cFeedback
             // 
-            this.cFeedback.Location = new System.Drawing.Point(309, 330);
+            this.cFeedback.Location = new System.Drawing.Point(15, 450);
             this.cFeedback.Multiline = true;
             this.cFeedback.Name = "cFeedback";
-            this.cFeedback.Size = new System.Drawing.Size(342, 98);
+            this.cFeedback.Size = new System.Drawing.Size(273, 98);
             this.cFeedback.TabIndex = 36;
             // 
             // colorPanel
@@ -453,11 +461,76 @@
             this.cTarget.Size = new System.Drawing.Size(207, 21);
             this.cTarget.TabIndex = 40;
             // 
+            // eFiles
+            // 
+            this.eFiles.AllColumns.Add(this.oFileName);
+            this.eFiles.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.oFileName});
+            this.eFiles.FullRowSelect = true;
+            this.eFiles.Location = new System.Drawing.Point(309, 364);
+            this.eFiles.Name = "eFiles";
+            this.eFiles.ShowGroups = false;
+            this.eFiles.Size = new System.Drawing.Size(342, 184);
+            this.eFiles.TabIndex = 41;
+            this.eFiles.UseCompatibleStateImageBehavior = false;
+            this.eFiles.View = System.Windows.Forms.View.Details;
+            this.eFiles.DoubleClick += new System.EventHandler(this.eFiles_DoubleClick);
+            // 
+            // btnFRemove
+            // 
+            this.btnFRemove.Location = new System.Drawing.Point(425, 335);
+            this.btnFRemove.Name = "btnFRemove";
+            this.btnFRemove.Size = new System.Drawing.Size(110, 23);
+            this.btnFRemove.TabIndex = 44;
+            this.btnFRemove.Text = "Remove";
+            this.btnFRemove.UseVisualStyleBackColor = true;
+            this.btnFRemove.Click += new System.EventHandler(this.btnFRemove_Click);
+            // 
+            // btnFAdd
+            // 
+            this.btnFAdd.Location = new System.Drawing.Point(309, 335);
+            this.btnFAdd.Name = "btnFAdd";
+            this.btnFAdd.Size = new System.Drawing.Size(110, 23);
+            this.btnFAdd.TabIndex = 43;
+            this.btnFAdd.Text = "Add";
+            this.btnFAdd.UseVisualStyleBackColor = true;
+            this.btnFAdd.Click += new System.EventHandler(this.btnFAdd_Click);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(306, 319);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(66, 13);
+            this.label8.TabIndex = 42;
+            this.label8.Text = "Attachments";
+            // 
+            // oFileName
+            // 
+            this.oFileName.AspectName = "Filename";
+            this.oFileName.FillsFreeSpace = true;
+            this.oFileName.Text = "File name";
+            // 
+            // btnExec
+            // 
+            this.btnExec.Location = new System.Drawing.Point(541, 335);
+            this.btnExec.Name = "btnExec";
+            this.btnExec.Size = new System.Drawing.Size(110, 23);
+            this.btnExec.TabIndex = 45;
+            this.btnExec.Text = "Open";
+            this.btnExec.UseVisualStyleBackColor = true;
+            this.btnExec.Click += new System.EventHandler(this.btnExec_Click);
+            // 
             // EventForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(658, 464);
+            this.ClientSize = new System.Drawing.Size(658, 605);
+            this.Controls.Add(this.btnExec);
+            this.Controls.Add(this.btnFRemove);
+            this.Controls.Add(this.btnFAdd);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.eFiles);
             this.Controls.Add(this.cTarget);
             this.Controls.Add(this.colorPanel);
             this.Controls.Add(this.label7);
@@ -498,6 +571,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.cHired)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ePersons)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cApp)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.eFiles)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -544,5 +618,12 @@
         private System.Windows.Forms.ColorDialog colorDialog;
         private System.Windows.Forms.Panel colorPanel;
         private System.Windows.Forms.ComboBox cTarget;
+        private BrightIdeasSoftware.ObjectListView eFiles;
+        private System.Windows.Forms.Button btnFRemove;
+        private System.Windows.Forms.Button btnFAdd;
+        private System.Windows.Forms.Label label8;
+        private BrightIdeasSoftware.OLVColumn oFileName;
+        private System.Windows.Forms.OpenFileDialog openFileDlg;
+        private System.Windows.Forms.Button btnExec;
     }
 }
